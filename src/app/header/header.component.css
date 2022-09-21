@@ -1,20 +1,17 @@
 nav {
+  display: flex;
   font-size: 1.125rem;
   font-family: Koop,Arial,serif;
   font-weight: bold;
-  margin-top: 20px;
 }
 
 .nav {
   cursor: pointer;
   padding-bottom: 15px;
+  padding-top: 20px;
   margin-left: 20px;
   text-decoration: none;
   color: #333;
-}
-
-#login {
-  text-align: right;
 }
 
 .nav:hover {
@@ -24,6 +21,6 @@ nav {
 
 .logo {
   font-size: 30px;
-  margin: 20px;
+  margin: 15px;
   color: #00843d;
 }
