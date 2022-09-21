@@ -1,0 +1,17 @@
+nav {
+  font-size: 1.125rem;
+  font-family: Koop,Arial,serif;
+  color: #333;
+  text-decoration: none;
+  font-weight: 400
+
+}
+
+.nav {
+  cursor: pointer;
+  padding-left: 20px;
+}
+
+.logo {
+  font-size: 20px;
+}
