@@ -8,6 +8,9 @@ import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { AuthComponent } from './auth/auth.component';
 import { AdminComponent } from './admin/admin.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+
 
 @NgModule({
   declarations: [
@@ -16,11 +19,13 @@ import { AdminComponent } from './admin/admin.component';
     CalculatorFormComponent,
     HeaderComponent,
     AuthComponent,
-    AdminComponent
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
