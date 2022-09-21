@@ -1,1 +1,32 @@
-<p>calculator-form works!</p>
+<div class="form">
+  <h1>Online půjčka</h1>
+<div>
+  <form>
+    <div>
+      <div *ngFor="let typOfApplicant of typOfApplicant">
+        <label>
+          <input
+          type="radio"
+          name="typOfApplicant"
+          [value]="typOfApplicant">
+          {{ typOfApplicant }}
+        </label>
+      </div>
+      <div class="form-fyz-osoba">
+        <label for="name">Jméno</label>
+        <input type="text" id="name">
+        <label for="surname">Příjmení</label>
+        <input type="test" id="surname">
+        <label for="personal-id-number">Rodné číslo</label>
+        <input type="text" id="personal-id-number">
+        <label for="nationality">Státní příslušnost</label>
+        <input type="text" id="nationality">
+        <label for="email">E-mail</label>
+        <input type="email" id="email">
+        <label for="tel">Telefonní číslo</label>
+        <input type="tel">
+      </div>
+    </div>
+  </form>
+</div>
+</div>
