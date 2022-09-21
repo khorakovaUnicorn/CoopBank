@@ -1,17 +1,29 @@
 nav {
   font-size: 1.125rem;
   font-family: Koop,Arial,serif;
-  color: #333;
-  text-decoration: none;
-  font-weight: 400
-
+  font-weight: bold;
+  margin-top: 20px;
 }
 
 .nav {
   cursor: pointer;
-  padding-left: 20px;
+  padding-bottom: 15px;
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+#login {
+  text-align: right;
+}
+
+.nav:hover {
+  color: #00843d;
+  border-bottom: #00843d solid;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 30px;
+  margin: 20px;
+  color: #00843d;
 }
