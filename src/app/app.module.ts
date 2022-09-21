@@ -5,16 +5,22 @@ import { AppComponent } from './app.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { CalculatorFormComponent } from './calculator/calculator-form/calculator-form.component';
 import { HeaderComponent } from './header/header.component';
+import {AppRoutingModule} from "./app-routing.module";
+import { AuthComponent } from './auth/auth.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalculatorComponent,
     CalculatorFormComponent,
-    HeaderComponent
+    HeaderComponent,
+    AuthComponent,
+    AdminComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
