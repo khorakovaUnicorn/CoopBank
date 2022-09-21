@@ -5,6 +5,12 @@ nav {
   font-weight: bold;
 }
 
+#login {
+  margin-left: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .nav {
   cursor: pointer;
   padding-bottom: 15px;
