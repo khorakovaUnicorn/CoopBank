@@ -17,6 +17,8 @@ import { CalculatorFormLegalEntityComponent } from './calculator/calculator-form
 import { CalculatorFormIndividualComponent } from "./calculator/calculator-form/calculator-form-individual/calculator-form-individual.component";
 import { CalculatorDefaultComponent } from './calculator/calculator-default/calculator-default.component';
 import { FooterComponent } from './footer/footer.component';
+import { RequestComponent } from './request/request.component';
+import { RequestDetailComponent } from './request/request-detail/request-detail.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { FooterComponent } from './footer/footer.component';
     AdminComponent,
     CalculatorMainComponent,
     CalculatorDefaultComponent,
-    FooterComponent
+    FooterComponent,
+    RequestComponent,
+    RequestDetailComponent
   ],
   imports: [
     BrowserModule,
