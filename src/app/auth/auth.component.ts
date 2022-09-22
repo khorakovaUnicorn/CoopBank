@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthResponseData, AuthService} from "./auth.service";
 import {NgForm} from "@angular/forms";
 import {Observable, Subscription} from "rxjs";
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   error = null;
   private userSub: Subscription;
 
@@ -48,5 +48,9 @@ export class AuthComponent implements OnInit {
         this.router.navigate(['/admin'])
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 }
