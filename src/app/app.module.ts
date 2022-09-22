@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 import { CalculatorMainComponent } from './calculator/calculator-main/calculator-main.component'
 import {CalculatorFormComponent} from "./calculator/calculator-form/calculator-form.component";
@@ -26,6 +27,7 @@ import { AuthComponent } from './auth/auth.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
