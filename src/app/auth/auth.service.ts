@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, catchError, throwError} from "rxjs";
+import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 
 import {User} from "./user.model";
@@ -27,8 +27,31 @@ export class AuthService {
         {headers: new HttpHeaders({Authorization: "Basic " + encoded_login_password})},
       )
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError),
+        tap(resData => {
+          this.handleAuthentication(
+            resData.login,
+            resData.name,
+            resData.roles,
+            resData.token
+          );
+        })
       )
+  }
+
+  private handleAuthentication(
+    login: string,
+    name: string,
+    roles: [string],
+    token: string
+  ) {
+    const user = new User(
+      login,
+      name,
+      roles,
+      token
+    );
+    this.user.next(user);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
