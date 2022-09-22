@@ -12,7 +12,12 @@
         Žádosti
       </a>
     <!--TODO: Change button to logout after logging in-->
-      <a class="nav" id="login" routerLink="/auth">Přihlášení</a>
+      <a class="nav" id="login" routerLink="/auth" *ngIf="!loggedUser">
+        Přihlášení
+      </a>
+      <a class="nav" id="logout" routerLink="/auth" *ngIf="loggedUser" (click)="onLogout()">
+        Odhlášení
+      </a>
   </span>
 </nav>
 
