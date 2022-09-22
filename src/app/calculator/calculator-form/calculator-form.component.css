@@ -1,6 +1,60 @@
+.main-form {
+  flex-grow: 1;
+  width: 33vw;
+  padding: 3em;
+  border: 1px solid #00843d;
+}
+
+.main-form-header {
+  color: #00843d;
+}
+
+.main-form-checkbox-area {
+  margin: 20px;
+}
+
+.main-form-checkbox {
+  margin: 5px;
+}
+
+.form-inputs {
+  margin: 20px;
+}
 
 .form-inputs input {
   display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.form-inputs input:focus {
+  outline: none;
+  border: 3px solid #00843d;
+}
+
+.loan-form-submit {
+  margin: .8em 20px;
+  width: 30%;
+  font-weight: bold;
+  background: #00843d;
+  border: 1px solid #00843d;
+  color: white;
+  padding: .5em 0;
+  transition-duration: 500ms;
+  font-size: 1em;
+}
+
+.loan-form-submit:hover {
+  cursor: pointer;
+  background: white;
+  color: #00843d;
+  transition-duration: 500ms;
+}
+
+.loan-form-submit:disabled {
+  cursor: default;
+  background: rgba(0, 132, 61, 0.71);
+  border: 1px solid rgba(0, 132, 61, 0.71);
 }
 
 .warning-message {
