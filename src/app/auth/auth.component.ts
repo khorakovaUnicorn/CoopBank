@@ -44,7 +44,7 @@ export class AuthComponent implements OnInit {
       }
     )
     this.userSub = this.authService.user.subscribe(user => {
-      if (user) {
+      if (user && (user.roles.includes("ADMIN") || user.roles.includes("SUPERVIZOR")))  {
         this.router.navigate(['/admin'])
       }
     });
