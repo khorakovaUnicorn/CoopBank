@@ -1,6 +1,7 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, catchError, throwError} from "rxjs";
+import {Injectable, OnInit} from "@angular/core";
+import {BehaviorSubject, catchError, Observable, Subscription, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 import {User} from "./user.model";
 
@@ -13,22 +14,29 @@ export interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  user: User;
 
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-  // Headers needed for login GET method: Authorization: base64(login:password)
-  userLogin(encoded_login_password: string) {
+  // Headers needed for login GET method: Authorization: Basic base64(login:password)
+  userLogin(encoded_login_password: string): Observable<AuthResponseData> {
     return this.http
       .get<AuthResponseData>(
         'http://localhost:8000/login',
         {headers: new HttpHeaders({Authorization: "Basic " + encoded_login_password})},
       )
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError),
+        tap(userData => {
+          this.user = userData;
+        })
       )
+  }
+
+  userLogout() {
+    this.user = null;
+    this.router.navigate(['/auth']);
   }
 
   private handleError(errorRes: HttpErrorResponse) {

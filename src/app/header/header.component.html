@@ -7,9 +7,16 @@
     <a class="nav">Kontakt</a>
     </span>
   <span class="nav_right">
-      <a class="nav" id="admin" routerLink="/admin">Žádosti</a>
+      <a class="nav" id="admin" routerLink="/admin" *ngIf="loggedUser">
+        Žádosti
+      </a>
     <!--TODO: Change button to logout after logging in-->
-      <a class="nav" id="login" routerLink="/auth">Přihlášení</a>
+      <a class="nav" id="login" routerLink="/auth" *ngIf="!loggedUser">
+        Přihlášení
+      </a>
+    <a class="nav" id="logout" routerLink="/auth" (click)="onLogout()">
+      Odhlášení
+    </a>
   </span>
 </nav>
 

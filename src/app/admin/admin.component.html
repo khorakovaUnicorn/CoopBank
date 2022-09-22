@@ -1,1 +1,4 @@
-<p>admin works!</p>
+<div *ngIf="loggedUser">
+  <p>{{ loggedUser.name }}</p>
+  <p>{{ loggedUser.roles }}</p>
+</div>
