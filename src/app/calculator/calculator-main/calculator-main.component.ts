@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from "@angular/forms";
 import {CalculatorService} from "../calculator.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-calculator-main',
@@ -22,7 +23,8 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
   overallAmount: number;
   fixedFee: number;
 
-  constructor(private calcService: CalculatorService) {
+  constructor(private calcService: CalculatorService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -57,7 +59,7 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
   }
 
   onSubmit() {
-    console.log(this.calculateForm);
+    this.router.navigate(['calc/calc-form']);
   }
 
   amtChange(e) {        //mění hodnotu částky

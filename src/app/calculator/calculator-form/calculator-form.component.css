@@ -3,6 +3,7 @@
   width: 33vw;
   padding: 3em;
   border: 1px solid #00843d;
+  margin-bottom: 3em;
 }
 
 .main-form-header {
@@ -42,6 +43,7 @@
   padding: .5em 0;
   transition-duration: 500ms;
   font-size: 1em;
+  font-family: 'Poppins', sans-serif;
 }
 
 .loan-form-submit:hover {

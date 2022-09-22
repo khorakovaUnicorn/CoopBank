@@ -15,6 +15,8 @@ import { AuthComponent } from './auth/auth.component';
 import { CalculatorFormOsvcComponent } from './calculator/calculator-form/calculator-form-osvc/calculator-form-osvc.component';
 import { CalculatorFormLegalEntityComponent } from './calculator/calculator-form/calculator-form-legal-entity/calculator-form-legal-entity.component';
 import { CalculatorFormIndividualComponent } from "./calculator/calculator-form/calculator-form-individual/calculator-form-individual.component";
+import { CalculatorDefaultComponent } from './calculator/calculator-default/calculator-default.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CalculatorFormIndividualComponent } from "./calculator/calculator-form/
     CalculatorFormLegalEntityComponent,
     AuthComponent,
     AdminComponent,
-    CalculatorMainComponent
+    CalculatorMainComponent,
+    CalculatorDefaultComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
