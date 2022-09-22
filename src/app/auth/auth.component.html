@@ -1,5 +1,5 @@
 <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-  <div>
+  <div class="field">
     <label for="login">Uživatelské jméno:</label>
     <br>
     <input
@@ -9,8 +9,7 @@
       name="login"
     />
   </div>
-  <br>
-  <div>
+  <div class="field">
     <label for="password">Heslo:</label>
     <br>
     <input
@@ -20,7 +19,6 @@
       name="password"
     />
   </div>
-  <br>
   <button type="submit">Potvrdit</button>
   <div class="error" *ngIf="error">
     <p>{{ error }}</p>
