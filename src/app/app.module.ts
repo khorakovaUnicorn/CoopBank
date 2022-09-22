@@ -9,6 +9,10 @@ import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { AuthComponent } from './auth/auth.component';
 import { AdminComponent } from './admin/admin.component';
+import {HttpClientModule} from "@angular/common/http";
+import { CalculatorFormOsvcComponent } from './calculator/calculator-form/calculator-form-osvc/calculator-form-osvc.component';
+import { CalculatorFormLegalEntityComponent } from './calculator/calculator-form/calculator-form-legal-entity/calculator-form-legal-entity.component';
+import { CalculatorFormIndividualComponent } from "./calculator/calculator-form/calculator-form-individual/calculator-form-individual.component";
 
 @NgModule({
   declarations: [
@@ -17,13 +21,17 @@ import { AdminComponent } from './admin/admin.component';
     CalculatorFormComponent,
     HeaderComponent,
     AuthComponent,
-    AdminComponent
+    AdminComponent,
+    CalculatorFormIndividualComponent,
+    CalculatorFormOsvcComponent,
+    CalculatorFormLegalEntityComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
