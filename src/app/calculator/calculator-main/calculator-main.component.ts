@@ -1,18 +1,28 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm, ReactiveFormsModule, FormGroup, FormControl, Validators} from "@angular/forms";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormGroup, FormControl} from "@angular/forms";
+import {CalculatorService} from "../calculator.service";
 
 @Component({
   selector: 'app-calculator-main',
   templateUrl: './calculator-main.component.html',
   styleUrls: ['./calculator-main.component.css']
 })
-export class CalculatorMainComponent implements OnInit{
+export class CalculatorMainComponent implements OnInit, OnDestroy{
   calculateForm: FormGroup;
-  amountValue = 598000;
+  amountValue: number = 598000;
+  numOfMonths: number = 33;
   durationMessage = '2 roky a 9 měsíců';
   hasBeenTouched = false;
 
-  constructor() {
+  //vypočítané hodnoty
+
+  monthlyPayment: number;
+  yearlyInterest: number;
+  RPSN: number;
+  overallAmount: number;
+  fixedFee: number;
+
+  constructor(private calcService: CalculatorService) {
   }
 
   ngOnInit() {
@@ -22,19 +32,50 @@ export class CalculatorMainComponent implements OnInit{
     });
   }
 
+  //načítání vypočítaných hodnot
+
+  calcSubscription = this.calcService.fetchedData.subscribe(fetchedData => {
+    console.log(fetchedData);
+
+    this.monthlyPayment = fetchedData.monthlyPayment;
+    this.yearlyInterest = fetchedData.yearlyInterest;
+    this.RPSN = fetchedData.RPSN;
+    this.overallAmount = fetchedData.overallAmount;
+    console.log(fetchedData.fixedFee);
+    if(fetchedData.fixedFee) {
+      this.fixedFee = 3000;//fetchedData.fixedFee;
+      /*setTimeout(() => {
+        this.fixedFee = 3000;
+      }, 3000);
+      console.log(this.fixedFee);*/
+    }
+
+  })
+
+  ngOnDestroy() {
+    this.calcSubscription.unsubscribe();
+  }
+
   onSubmit() {
     console.log(this.calculateForm);
   }
 
-  amtChange(e) {                            //mění hodnotu částky
+  amtChange(e) {        //mění hodnotu částky
     this.amountValue = e.target.value;
     this.hasBeenTouched = true;
+    this.calcService.sendCalcData(this.amountValue, this.numOfMonths);
   }
 
-  durChange(e) {
+  durChange(e) {   //meni mesice
     let months = e.target.value;
+    this.numOfMonths = months;
+
     this.hasBeenTouched = true;
     this.countMonths(months);
+
+    this.calcService.sendCalcData(this.amountValue, months);
+
+    //this.calcService.sendCalcData({ this.amountValue, months});
   }
 
   countMonths(months: number) {
