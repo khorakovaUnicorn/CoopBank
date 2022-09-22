@@ -1,11 +1,12 @@
 <div class="main-form">
-  <h1>Online půjčka</h1>
+  <h1 class="main-form-header">Žádost o online půjčku</h1>
   <div>
     <form [formGroup]="loanForm">
-      <div>
+      <div class="main-form-checkbox-area">
         <div *ngFor="let applicantType of applicantTypes">
           <label>
             <input
+              class="main-form-checkbox"
               type="radio"
               formControlName="applicantType"
               [value]="applicantType.key">
