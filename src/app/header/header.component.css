@@ -5,15 +5,24 @@ nav {
   font-weight: bold;
 }
 
-#login {
+#login, #admin {
   margin-left: auto;
   margin-right: 20px;
 }
 
+.nav_right {
+  padding-top: 20px;
+  margin-left: auto;
+}
+
+.nav_left {
+  padding-top: 20px;
+}
+
+
 .nav {
   cursor: pointer;
   padding-bottom: 15px;
-  padding-top: 20px;
   margin-right: 20px;
   text-decoration: none;
   color: #333;
