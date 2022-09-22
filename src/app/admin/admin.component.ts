@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Subscription} from "rxjs";
+import {AuthService} from "../auth/auth.service";
+import {User} from "../auth/user.model";
 
 @Component({
   selector: 'app-admin',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  loggedUser: User;
+  private userSub: Subscription;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private authService: AuthService) {
   }
 
+  ngOnInit() {
+    this.userSub = this.authService.user.subscribe(user => {
+      this.loggedUser = user;
+    });
+  }
 }
