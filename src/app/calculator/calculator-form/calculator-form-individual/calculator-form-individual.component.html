@@ -1,0 +1,36 @@
+<form [formGroup]="loanFormIndividual" (ngSubmit)="onSubmit()">
+    <div class="form-inputs">
+      <label for="name">Jméno</label>
+      <input type="text" id="name" formControlName="name">
+      <p class="warning-message" *ngIf="!loanFormIndividual.get('name').valid && loanFormIndividual.get('name').touched">Vyplň uživatelské jméno</p>
+
+      <label for="surname">Příjmení</label>
+      <input type="text" id="surname" formControlName="surname">
+
+      <label for="birthNum">Rodné číslo</label>
+      <input type="text" id="birthNum" formControlName="birthNum">
+
+      <label for="nationality">Státní příslušnost</label>
+      <input type="text" id="nationality" formControlName="nationality">
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" formControlName="email">
+
+      <label for="phone">Telefonní číslo</label>
+      <input type="tel" id="phone" formControlName="phone">
+
+      <div formGroupName="address">
+        <label for="street">Ulice</label>
+        <input type="text" id="street" formControlName="street">
+        <label for="descNumber">Číslo popisné</label>
+        <input type="number" id="descNumber" formControlName="descNumber">
+        <label for="indicativeNumber">Číslo orientační</label>
+        <input type="number" id="indicativeNumber" formControlName="indicativeNumber">
+        <label for="city">Město</label>
+        <input type="text" id="city" formControlName="city">
+        <label for="postalCode">Poštovní směrovací číslo</label>
+        <input  type="number" id="postalCode" formControlName="postalCode">
+      </div>
+    </div>
+  <button type="submit">Odeslat</button>
+</form>
