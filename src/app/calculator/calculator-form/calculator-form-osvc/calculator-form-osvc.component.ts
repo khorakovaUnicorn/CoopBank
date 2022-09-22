@@ -16,12 +16,12 @@ export class CalculatorFormOsvcComponent implements OnInit {
   ngOnInit(): void {
     this.loanFormOSVC = new FormGroup({
       'applicantType': new FormControl(ApplicantType.OSVC),
-      'name': new FormControl(null, [Validators.required]),
-      'surname': new FormControl(),
-      'IC': new FormControl(),
-      'nationality': new FormControl(),
-      'email': new FormControl(),
-      'phone': new FormControl(),
+      'name': new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
+      'surname': new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
+      'IC': new FormControl(null,[Validators.required, Validators.pattern("^[1-9]+[0-9]*$")]),
+      'nationality': new FormControl("Česká republika"),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'phone': new FormControl(null,[Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(9)]),
       'address': new FormGroup({
         'street': new FormControl(),
         'descNumber': new FormControl(),
