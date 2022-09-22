@@ -44,12 +44,17 @@
 
 .reqData {
   display: flex;
-  max-width: 15em;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
+}
+
+.reqData h4 {
+  margin: 10px 0;
 }
 
 .reqData p {
-  margin-left: auto;
+  margin: 10px 0;
 }
 
 /* import CSS pro slidery */
