@@ -1,6 +1,6 @@
 <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-  <div>
-    <label for="login">Login:</label>
+  <div class="field">
+    <label for="login">Uživatelské jméno:</label>
     <br>
     <input
       ngModel
@@ -9,9 +9,8 @@
       name="login"
     />
   </div>
-  <br>
-  <div>
-    <label for="password">Password:</label>
+  <div class="field">
+    <label for="password">Heslo:</label>
     <br>
     <input
       ngModel
@@ -20,6 +19,9 @@
       name="password"
     />
   </div>
-  <br>
-  <button type="submit">Login</button>
+  <button type="submit">Potvrdit</button>
+  <div class="error" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
 </form>
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthResponseData, AuthService} from "./auth.service";
 import {NgForm} from "@angular/forms";
 import {Observable} from "rxjs";
@@ -9,8 +9,10 @@ import {Observable} from "rxjs";
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+  error = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
   }
@@ -20,20 +22,27 @@ export class AuthComponent implements OnInit {
     const password = form.value.password;
     const encoded = btoa(login + ":" + password);
 
-    const decoded = atob(encoded);
-    console.log(encoded);
-    console.log(decoded);
-
-    console.log(login);
-    console.log(password);
-
     let authObs: Observable<AuthResponseData>
 
     authObs = this.authService.userLogin(encoded)
 
-    authObs.subscribe(resData => {
-      console.log(resData)
-    })
+    authObs.subscribe(
+      resData => {
+        console.log(resData)
+        this.error = null;
+      },
+      error => {
+        // this.error = error.message;
+        if (error.message === "username or password incorrect") {
+          this.error = "Nesprávné přihlašovací údaje"
+        } else if (error.message === "Connection refused!") {
+          this.error = "Nelze se připojit k serveru";
+        } else {
+          this.error = "Neznámý error"
+        }
+      }
+    )
   }
+
 
 }

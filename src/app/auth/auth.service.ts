@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {BehaviorSubject, catchError, throwError} from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 
 import {User} from "./user.model";
 
@@ -24,10 +24,23 @@ export class AuthService {
     return this.http
       .get<AuthResponseData>(
         'http://localhost:8000/login',
-        {headers: new HttpHeaders({Authorization: "Basic " + encoded_login_password})}, // tried with 'Auth...' and `${}` as well
+        {headers: new HttpHeaders({Authorization: "Basic " + encoded_login_password})},
+      )
+      .pipe(
+        catchError(this.handleError)
       )
   }
 
+  private handleError(errorRes: HttpErrorResponse) {
+    let errorMessage = 'Connection refused!';
+    if (!errorRes.error || !errorRes.error.error) {
+      return throwError(() => new Error(errorMessage));
+    }
+    if (errorRes.error.error === "username or password incorrect") {
+      errorMessage = errorRes.error.error;
+    }
+    return throwError(() => new Error(errorMessage));
+  }
 
 }
 
