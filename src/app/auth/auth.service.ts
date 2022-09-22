@@ -22,12 +22,15 @@ export class AuthService {
   // Headers needed for login GET method: Authorization: base64(login:password)
   userLogin(encoded_login_password: string) {
     return this.http
-      .get<AuthResponseData>('http://localhost:8000/login',
-        {
-          headers: new HttpHeaders({Authorization: encoded_login_password})  // tried with 'Auth...' and `${}` as well
-        })
+      .get<AuthResponseData>(
+        'http://localhost:8000/login',
+        {headers: new HttpHeaders({Authorization: "Basic " + encoded_login_password})}, // tried with 'Auth...' and `${}` as well
+      )
   }
+
+
 }
+
 
 
 

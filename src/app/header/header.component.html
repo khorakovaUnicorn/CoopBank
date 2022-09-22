@@ -1,11 +1,15 @@
 <nav>
   <span class="logo">Coopbank</span>
+  <span class="nav_left">
     <a class="nav" routerLink="/calc">Kalkulačka</a>
     <a class="nav">Půjčka</a>
-    <a class="nav">Návody a dokumenty</a>
     <a class="nav">O společnosti</a>
     <a class="nav">Kontakt</a>
-<!--TODO: Change button to logout after logging in-->
-    <a class="nav" id="login" routerLink="/auth">Přihlášení</a>
+    </span>
+  <span class="nav_right">
+      <a class="nav" id="admin" routerLink="/admin">Žádosti</a>
+    <!--TODO: Change button to logout after logging in-->
+      <a class="nav" id="login" routerLink="/auth">Přihlášení</a>
+  </span>
 </nav>
 

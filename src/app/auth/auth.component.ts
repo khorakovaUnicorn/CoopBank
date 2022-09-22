@@ -18,8 +18,11 @@ export class AuthComponent implements OnInit {
   onSubmit(form: NgForm) {
     const login = form.value.login;
     const password = form.value.password;
-    const encoded = btoa(login+":"+password)
-    console.log(encoded)
+    const encoded = btoa(login + ":" + password);
+
+    const decoded = atob(encoded);
+    console.log(encoded);
+    console.log(decoded);
 
     console.log(login);
     console.log(password);
