@@ -42,6 +42,16 @@
   margin-left: 1.5em;
 }
 
+.reqData {
+  display: flex;
+  max-width: 15em;
+  align-items: center;
+}
+
+.reqData p {
+  margin-left: auto;
+}
+
 /* import CSS pro slidery */
 
 input[type=range] {
