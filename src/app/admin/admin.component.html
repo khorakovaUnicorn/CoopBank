@@ -4,5 +4,28 @@
     <p>{{ loggedUser ? loggedUser.roles : "" }}</p>
   </div>
 
-
+<div>
+  <table class="table">
+    <tr>
+      <th>
+        <select>
+          <option>Fyzická osoba</option>
+          <option>OSVČ</option>
+          <option>Právnická osoba</option>
+        </select>
+      </th>
+      <th>Příjmení <select><option>A-Z</option><option>Z-A</option></select></th>
+      <th>Výše úvěru <select><option>MAX</option><option>MIN</option></select></th>
+      <th>Stav žádosti</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>Fyzická osoba</td>
+      <td>Novák</td>
+      <td>6 000 Kč</td>
+      <td>Neschváleno</td>
+      <td><button>Schválit</button><button>Zamítnout</button><button>Detail</button></td>
+    </tr>
+  </table>
+</div>
 </div>
