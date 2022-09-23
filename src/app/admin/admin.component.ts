@@ -15,9 +15,12 @@ export class AdminComponent implements OnInit {
   loggedUser: User;
   allRequests: oneRequest[];
   displayedRequests: oneRequest[];
+  filteredBySubject: oneRequest[];
+  filteredByState: oneRequest[];
   subjectSelection: string = 'all';
   requestStateSelection: string = 'all';
   private userSub: Subscription;
+
 
   constructor(private authService: AuthService, private adminService: AdminService) {
 
@@ -39,16 +42,29 @@ export class AdminComponent implements OnInit {
       resData => {
         this.allRequests = resData;
         this.displayedRequests = [...this.allRequests];
+        this.filteredBySubject = [...this.allRequests];
+        this.filteredByState = [...this.allRequests]
       }
     )
   }
 
+  filterFinal(subjectFiltered: oneRequest[], stateFiltered: oneRequest[]) {
+    return subjectFiltered.filter(object1 => {
+      return stateFiltered.some(object2 => {
+        return object1.id === object2.id;
+      });
+    });
+  }
+
+
   filterSubject(event) {
-    this.displayedRequests = this.adminService.displayFilteredSubject(this.allRequests, event)
+    this.filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, event);
+    this.displayedRequests = this.filterFinal(this.filteredBySubject, this.filteredByState);
   }
 
   filterState(event) {
-    this.displayedRequests = this.adminService.displayFilteredState(this.allRequests, event)
+    this.filteredByState = this.adminService.displayFilteredState(this.allRequests, event);
+    this.displayedRequests = this.filterFinal(this.filteredBySubject, this.filteredByState);
   }
 
 
