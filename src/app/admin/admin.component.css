@@ -1,0 +1,10 @@
+.admin {
+  position: absolute;
+  margin-top: 7em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.whoIsLogged {
+  margin-left: auto;
+}
