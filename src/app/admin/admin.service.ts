@@ -87,4 +87,12 @@ export class AdminService {
     }
     return null
   }
+
+  filterFinal(subjectFiltered: oneRequest[], stateFiltered: oneRequest[]) {
+    return subjectFiltered.filter(object1 => {
+      return stateFiltered.some(object2 => {
+        return object1.id === object2.id;
+      });
+    });
+  }
 }

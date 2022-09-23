@@ -48,23 +48,17 @@ export class AdminComponent implements OnInit {
     )
   }
 
-  filterFinal(subjectFiltered: oneRequest[], stateFiltered: oneRequest[]) {
-    return subjectFiltered.filter(object1 => {
-      return stateFiltered.some(object2 => {
-        return object1.id === object2.id;
-      });
-    });
-  }
+
 
 
   filterSubject(event) {
     this.filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, event);
-    this.displayedRequests = this.filterFinal(this.filteredBySubject, this.filteredByState);
+    this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
   }
 
   filterState(event) {
     this.filteredByState = this.adminService.displayFilteredState(this.allRequests, event);
-    this.displayedRequests = this.filterFinal(this.filteredBySubject, this.filteredByState);
+    this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
   }
 
 
