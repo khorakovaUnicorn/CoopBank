@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApplicantType} from "../calculator-form.component";
+import {CalculatorService} from "../../calculator.service";
 
 @Component({
   selector: 'app-calculator-form-osvc',
@@ -10,7 +11,7 @@ import {ApplicantType} from "../calculator-form.component";
 export class CalculatorFormOsvcComponent implements OnInit {
   loanFormOSVC: FormGroup;
 
-  constructor() {
+  constructor(private calcService: CalculatorService) {
   }
 
   ngOnInit(): void {
@@ -33,6 +34,21 @@ export class CalculatorFormOsvcComponent implements OnInit {
   }
 
   onSubmit() {
+    let rawValue = this.loanFormOSVC.getRawValue();
+
+    this.calcService.getDataFromUser(
+      'OSVC',
+      rawValue.name,
+      rawValue.surname,
+      rawValue.birthNum,
+      rawValue.nationality,
+      rawValue.email,
+      rawValue.phone,
+      rawValue.IC,
+      null,
+      null,
+      rawValue.address
+    )
   }
 
   AddressValidator(control: FormControl): {[s: string]: boolean} {

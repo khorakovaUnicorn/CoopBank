@@ -87,3 +87,10 @@ input.ng-invalid.ng-touched {
   display: flex;
   gap: 5px;
 }
+
+.errMess {
+  color: red;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+}

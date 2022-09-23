@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
+import {Subscription} from "rxjs";
+import {CalculatorService} from "../calculator.service";
+import {Router} from "@angular/router";
 
 export enum ApplicantType {
   OSVC= 'OSVC',
@@ -20,6 +23,8 @@ interface ApplicantDefinition {
 })
 export class CalculatorFormComponent implements OnInit {
   loanForm: FormGroup;
+  errMess = null;
+  responseSub: Subscription;
 
   ApplicantType = ApplicantType
 
@@ -38,19 +43,24 @@ export class CalculatorFormComponent implements OnInit {
     }
   ];
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private calcService: CalculatorService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.loanForm = new FormGroup({
       'applicantType': new FormControl(this.applicantTypes[0].key),
     });
+
+    this.responseSub = this.calcService.requestResponse.subscribe(response => {
+      console.log(response);
+
+      this.router.navigate(['/request'], {queryParams: {
+          reqID: response
+        }})
+    }, error => {
+      this.errMess = error; //TODO rozdělit error na chybu připojení k serveru/sudé č.p.
+    })
   }
 
-  onSubmit() {
-    console.log(this.loanForm.getRawValue())
-
-    this.httpClient.post('http://localhost:8000/request/create', this.loanForm.getRawValue())
-      .subscribe(value => console.log(value))
-  }
 }

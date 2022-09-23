@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApplicantType} from "../calculator-form.component";
+import {CalculatorService} from "../../calculator.service";
 
 @Component({
   selector: 'app-calculator-form-legal-entity',
@@ -10,7 +11,7 @@ import {ApplicantType} from "../calculator-form.component";
 export class CalculatorFormLegalEntityComponent implements OnInit {
   loanFormLegalEntity: FormGroup;
 
-  constructor() { }
+  constructor(private calcService: CalculatorService) { }
 
   ngOnInit(): void {
     this.loanFormLegalEntity = new FormGroup({
@@ -33,6 +34,21 @@ export class CalculatorFormLegalEntityComponent implements OnInit {
   }
 
   onSubmit() {
+    let rawValue = this.loanFormLegalEntity.getRawValue();
+
+    this.calcService.getDataFromUser(
+      'Company',
+      rawValue.name,
+      rawValue.surname,
+      null,
+      null,
+      rawValue.email,
+      rawValue.phone,
+      rawValue.IC,
+      rawValue.position,
+      rawValue.companyName,
+      rawValue.address
+    )
   }
 
   AddressValidator(control: FormControl): {[s: string]: boolean} {

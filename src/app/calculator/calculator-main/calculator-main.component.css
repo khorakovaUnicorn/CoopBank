@@ -133,6 +133,12 @@
   cursor: default;
 }
 
+.errMess {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
 /* Cizí kód, slider */
 
 input[type=range] {
