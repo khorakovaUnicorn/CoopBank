@@ -44,15 +44,7 @@ export class AdminComponent implements OnInit {
   }
 
   filterSubject(event) {
-    if (event === "all") {
-      this.displayedRequests = [...this.allRequests];
-    } else if (event === "natural") {
-      this.displayedRequests = this.adminService.displayNaturalPerson(this.allRequests);
-    } else if (event === "legal") {
-      this.displayedRequests = this.adminService.displayLegalPerson(this.allRequests);
-    } else if (event === "OSVC") {
-      this.displayedRequests = this.adminService.displayOSVC(this.allRequests);
-    }
+    this.displayedRequests = this.adminService.displayFilteredSubject(this.allRequests, event)
   }
 
   filterState(event) {

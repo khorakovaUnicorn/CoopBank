@@ -50,22 +50,23 @@ export class AdminService {
       )
   }
 
-  displayOSVC(requests: oneRequest[]) {
-    return requests.filter(obj => {
-      return obj.applicantType === "OSVC";
-    });
-  }
-
-  displayNaturalPerson(requests: oneRequest[]) {
-    return requests.filter(obj => {
-      return obj.applicantType === "INDIVIDUAL";
-    });
-  }
-
-  displayLegalPerson(requests: oneRequest[]) {
-    return requests.filter(obj => {
-      return obj.applicantType === "LEGAL_ENTITY";
-    });
+  displayFilteredSubject(requests: oneRequest[], subject: string) {
+    if (subject === 'all') {
+      return requests;
+    } else if (subject === 'natural') {
+      return requests.filter(obj => {
+        return obj.applicantType === "INDIVIDUAL";
+      });
+    } else if (subject === 'legal') {
+      return requests.filter(obj => {
+        return obj.applicantType === "LEGAL_ENTITY";
+      });
+    } else if (subject === 'OSVC') {
+      return requests.filter(obj => {
+        return obj.applicantType === "OSVC";
+      });
+    }
+    return null
   }
 
   displayFilteredState(requests: oneRequest[], status: string) {
