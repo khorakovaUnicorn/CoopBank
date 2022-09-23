@@ -19,11 +19,11 @@
       <th>Stav žádosti</th>
       <th></th>
     </tr>
-    <tr>
-      <td>Fyzická osoba</td>
-      <td>Novák</td>
-      <td>6 000 Kč</td>
-      <td>Neschváleno</td>
+    <tr *ngFor="let request of allRequests">
+      <td>{{ request.applicantType }}</td>
+      <td>{{ request.surname }}</td>
+      <td>{{ request.amount }}</td>
+      <td>{{ request.status }}</td>
       <td><button>Schválit</button><button>Zamítnout</button><button>Detail</button></td>
     </tr>
   </table>
