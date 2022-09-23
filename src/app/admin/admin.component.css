@@ -8,3 +8,26 @@
 .whoIsLogged {
   margin-left: auto;
 }
+
+.table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+.table th {
+  border: 1px solid black;
+  padding: 10px;
+  background-color: #00843d;
+  color: white;
+}
+
+.table td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.table button {
+  padding: 5px;
+  margin: 5px;
+}
