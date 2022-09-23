@@ -25,10 +25,10 @@ export class CalculatorFormIndividualComponent implements OnInit {
       'phone': new FormControl(null,[Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(9)]),
       'address': new FormGroup({
         'street': new FormControl(),
-        'descNumber': new FormControl(),
+        'descNumber': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"),  this.AddressValidator.bind(this)]),
         'indicativeNumber': new FormControl(),
         'city': new FormControl(),
-        'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$")])
+        'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(5)])
       }),
     });
   }
@@ -38,5 +38,12 @@ export class CalculatorFormIndividualComponent implements OnInit {
 
     this.httpClient.post('http://localhost:8000/request/create', this.loanFormIndividual.getRawValue())
       .subscribe(value => console.log(value))
+  }
+
+  AddressValidator(control: FormControl): {[s: string]: boolean} {
+    if (control.value % 2 === 0 ) {
+      return {'addressIsNotValid': true};
+    }
+    return null;
   }
 }
