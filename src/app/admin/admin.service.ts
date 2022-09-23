@@ -43,30 +43,47 @@ export class AdminService {
 
 
   getAllRequests(token: string) {
-      return this.http
+    return this.http
       .get<AdminResponseData>(
         'http://localhost:8000/request/list',
         {headers: new HttpHeaders({Authorization: "Bearer " + token})},
       )
   }
 
-  displayOSVC(requests: oneRequest[]){
+  displayOSVC(requests: oneRequest[]) {
     return requests.filter(obj => {
       return obj.applicantType === "OSVC";
     });
   }
 
-  displayNaturalPerson(requests: oneRequest[]){
+  displayNaturalPerson(requests: oneRequest[]) {
     return requests.filter(obj => {
       return obj.applicantType === "INDIVIDUAL";
     });
   }
 
-  displayLegalPerson(requests: oneRequest[]){
+  displayLegalPerson(requests: oneRequest[]) {
     return requests.filter(obj => {
       return obj.applicantType === "LEGAL_ENTITY";
     });
   }
 
-
+  displayFilteredState(requests: oneRequest[], status: string) {
+    if (status === 'all') {
+      return requests;
+    } else if (status === 'pending') {
+      return requests.filter(obj => {
+        return obj.status === "PENDING";
+      });
+    } else if (status === 'cancelled') {
+      return requests.filter(obj => {
+        return obj.status === "CANCELLED";
+      });
+    } else if (status === 'approved') {
+      return requests.filter(obj => {
+        return obj.status === "APPROVED";
+      });
+    }
+    return null
+  }
 }

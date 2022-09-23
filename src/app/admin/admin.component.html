@@ -4,29 +4,62 @@
     <p>{{ loggedUser ? loggedUser.roles : "" }}</p>
   </div>
 
-<div>
-  <table class="table">
-    <tr>
-      <th>
-        <select [(ngModel)]="subjectSelection" (ngModelChange)="changeSubject($event)">
-          <option value="all">Vše</option>
-          <option value="natural">Fyzická osoba</option>
-          <option value="OSVC">OSVČ</option>
-          <option value="legal">Právnická osoba</option>
-        </select>
-      </th>
-      <th>Příjmení <select><option>A-Z</option><option>Z-A</option></select></th>
-      <th>Výše úvěru <select><option>MAX</option><option>MIN</option></select></th>
-      <th>Stav žádosti</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let request of displayedRequests">
-      <td>{{ request.applicantType }}</td>
-      <td>{{ request.surname }}</td>
-      <td>{{ request.amount }}</td>
-      <td>{{ request.status }}</td>
-      <td><button>Schválit</button><button>Zamítnout</button><button>Detail</button></td>
-    </tr>
-  </table>
-</div>
+  <div>
+    <table class="filters">
+      <tr>
+        <th>Typ osoby</th>
+        <th>Stav žádosti</th>
+      </tr>
+      <tr>
+        <td>
+          <select [(ngModel)]="subjectSelection" (ngModelChange)="filterSubject($event)">
+            <option value="all">Vše</option>
+            <option value="natural">Fyzická osoba</option>
+            <option value="OSVC">OSVČ</option>
+            <option value="legal">Právnická osoba</option>
+          </select>
+        </td>
+        <td>
+          <select [(ngModel)]="requestStateSelection" (ngModelChange)="filterState($event)">
+            <option value="all">Vše</option>
+            <option value="pending">Čekající</option>
+            <option value="cancelled">Zamítnuté</option>
+            <option value="approved">Schválené</option>
+          </select>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+  <br>
+
+
+  <div>
+    <table class="table">
+      <tr>
+        <th>Typ osoby</th>
+        <th>Příjmení <select>
+          <option>A-Z</option>
+          <option>Z-A</option>
+        </select></th>
+        <th>Výše úvěru <select>
+          <option>MAX</option>
+          <option>MIN</option>
+        </select></th>
+        <th>Stav žádosti</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let request of displayedRequests">
+        <td>{{ request.applicantType }}</td>
+        <td>{{ request.surname }}</td>
+        <td>{{ request.amount }}</td>
+        <td>{{ request.status }}</td>
+        <td>
+          <button>Schválit</button>
+          <button>Zamítnout</button>
+          <button>Detail</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

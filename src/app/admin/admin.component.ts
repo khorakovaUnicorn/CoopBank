@@ -15,8 +15,9 @@ export class AdminComponent implements OnInit {
   loggedUser: User;
   allRequests: oneRequest[];
   displayedRequests: oneRequest[];
-  private userSub: Subscription;
   subjectSelection: string = 'all';
+  requestStateSelection: string = 'all';
+  private userSub: Subscription;
 
   constructor(private authService: AuthService, private adminService: AdminService) {
 
@@ -42,21 +43,21 @@ export class AdminComponent implements OnInit {
     )
   }
 
-
-
-
-  changeSubject(event) {
+  filterSubject(event) {
     if (event === "all") {
       this.displayedRequests = [...this.allRequests];
     } else if (event === "natural") {
       this.displayedRequests = this.adminService.displayNaturalPerson(this.allRequests);
-    }  else if (event === "legal") {
+    } else if (event === "legal") {
       this.displayedRequests = this.adminService.displayLegalPerson(this.allRequests);
     } else if (event === "OSVC") {
       this.displayedRequests = this.adminService.displayOSVC(this.allRequests);
     }
   }
 
+  filterState(event) {
+    this.displayedRequests = this.adminService.displayFilteredState(this.allRequests, event)
+  }
 
 
 }
