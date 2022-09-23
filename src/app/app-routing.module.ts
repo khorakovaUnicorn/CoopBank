@@ -8,6 +8,7 @@ import {CalculatorFormComponent} from "./calculator/calculator-form/calculator-f
 import {CalculatorDefaultComponent} from "./calculator/calculator-default/calculator-default.component";
 import {RequestComponent} from "./request/request.component";
 import {AuthGuard} from "./auth/auth-guard";
+import {AdminDetailComponent} from "./admin/admin-detail/admin-detail.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/calc', pathMatch: 'full'},
@@ -16,7 +17,9 @@ const appRoutes: Routes = [
       {path: 'calc-form', component: CalculatorFormComponent}
     ]},
   { path: 'auth', component: AuthComponent},
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
+      {path: 'detail', component: AdminDetailComponent}
+    ]},
   { path: 'request', component: RequestComponent}
 
 ]

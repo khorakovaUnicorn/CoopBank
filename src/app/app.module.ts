@@ -19,6 +19,7 @@ import { CalculatorDefaultComponent } from './calculator/calculator-default/calc
 import { FooterComponent } from './footer/footer.component';
 import { RequestComponent } from './request/request.component';
 import { RequestDetailComponent } from './request/request-detail/request-detail.component';
+import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RequestDetailComponent } from './request/request-detail/request-detail.
     CalculatorDefaultComponent,
     FooterComponent,
     RequestComponent,
-    RequestDetailComponent
+    RequestDetailComponent,
+    AdminDetailComponent
   ],
   imports: [
     BrowserModule,
