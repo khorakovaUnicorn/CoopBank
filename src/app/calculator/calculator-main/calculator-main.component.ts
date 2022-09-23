@@ -14,6 +14,7 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
   numOfMonths: number = 33;
   durationMessage = '2 roky a 9 měsíců';
   hasBeenTouched = false;
+  errMess = null;
 
   //vypočítané hodnoty
 
@@ -37,22 +38,19 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
   //načítání vypočítaných hodnot
 
   calcSubscription = this.calcService.fetchedData.subscribe(fetchedData => {
-    console.log(fetchedData);
-
+    this.hasBeenTouched = true;
     this.monthlyPayment = fetchedData.monthlyPayment;
     this.yearlyInterest = fetchedData.yearlyInterest;
     this.RPSN = fetchedData.RPSN;
     this.overallAmount = fetchedData.overallAmount;
-    console.log(fetchedData.fixedFee);
-    if(fetchedData.fixedFee) {
-      this.fixedFee = 3000;//fetchedData.fixedFee;
-      /*setTimeout(() => {
-        this.fixedFee = 3000;
-      }, 3000);
-      console.log(this.fixedFee);*/
-    }
 
-  })
+      this.fixedFee = fetchedData.fixedFee;
+
+  },error => {
+      this.hasBeenTouched = false;
+      this.errMess = error;
+    }
+  )
 
   ngOnDestroy() {
     this.calcSubscription.unsubscribe();
@@ -64,7 +62,6 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
 
   amtChange(e) {        //mění hodnotu částky
     this.amountValue = e.target.value;
-    this.hasBeenTouched = true;
     this.calcService.sendCalcData(this.amountValue, this.numOfMonths);
   }
 
@@ -72,7 +69,6 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
     let months = e.target.value;
     this.numOfMonths = months;
 
-    this.hasBeenTouched = true;
     this.countMonths(months);
 
     this.calcService.sendCalcData(this.amountValue, months);

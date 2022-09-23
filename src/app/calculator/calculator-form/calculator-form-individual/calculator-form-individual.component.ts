@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {ApplicantType} from "../calculator-form.component";
+import {CalculatorService} from "../../calculator.service";
 
 @Component({
   selector: 'app-calculator-form-individual',
@@ -11,7 +12,7 @@ import {ApplicantType} from "../calculator-form.component";
 export class CalculatorFormIndividualComponent implements OnInit {
   loanFormIndividual: FormGroup;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private calcService: CalculatorService) {
   }
 
   ngOnInit(): void {
@@ -34,9 +35,20 @@ export class CalculatorFormIndividualComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loanFormIndividual.getRawValue())
+    let rawValue = this.loanFormIndividual.getRawValue();
 
-    this.httpClient.post('http://localhost:8000/request/create', this.loanFormIndividual.getRawValue())
-      .subscribe(value => console.log(value))
+    this.calcService.getDataFromUser(
+'INDIVIDUAL',
+      rawValue.name,
+      rawValue.surname,
+      rawValue.birthNum,
+      rawValue.nationality,
+      rawValue.email,
+      rawValue.phone,
+      null,
+      null,
+      null,
+      rawValue.address
+    )
   }
 }

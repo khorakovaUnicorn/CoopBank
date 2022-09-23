@@ -62,3 +62,10 @@
 .warning-message {
   color: red;
 }
+
+.errMess {
+  color: red;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+}
