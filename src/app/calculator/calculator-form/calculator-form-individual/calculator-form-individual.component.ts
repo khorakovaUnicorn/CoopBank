@@ -20,13 +20,13 @@ export class CalculatorFormIndividualComponent implements OnInit {
       'applicantType': new FormControl(ApplicantType.INDIVIDUAL),
       'name': new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
       'surname': new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
-      'birthNum': new FormControl(null,[Validators.pattern("^[1-9]+[0-9]*$")]),
+      'birthNum': new FormControl(null,[Validators.pattern("^[0-9]+[0-9]*$")]),
       'nationality': new FormControl("Česká republika"),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'phone': new FormControl(null,[Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(9)]),
       'address': new FormGroup({
         'street': new FormControl(),
-        'descNumber': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"),  this.AddressValidator.bind(this)]),
+        'descNumber': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$")/*,  this.AddressValidator.bind(this)*/]),
         'indicativeNumber': new FormControl(),
         'city': new FormControl(),
         'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(5)])

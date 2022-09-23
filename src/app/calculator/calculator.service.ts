@@ -92,7 +92,12 @@ export class CalculatorService {
     this.formData.phone = phone;
     this.formData.amount = this.amount;
     this.formData.numOfMonths = this.numOfMonths;
+    address.descNumber = +address.descNumber;
+    address.indicativeNumber = +address.indicativeNumber;
+    address.postalCode = +address.postalCode;
     this.formData.address = address;
+
+    console.log(this.formData);
 
     this.submitRequest(this.formData);
   }
@@ -103,6 +108,7 @@ export class CalculatorService {
       formData).subscribe( response => {
         this.requestResponse.next(response['id']);
     }, error => {
+        console.log('Error: ' + error);
         this.requestResponse.error('Připojení se serverem selhalo!');
       }
     );
