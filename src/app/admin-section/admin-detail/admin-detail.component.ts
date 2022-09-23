@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-detail',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  backToAllRequest() {
+    this.router.navigate(['../allRequest'], { relativeTo: this.route });
   }
 
 }

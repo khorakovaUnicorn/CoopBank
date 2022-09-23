@@ -9,7 +9,7 @@ import { AppRoutingModule } from "./app-routing.module";
 
 import { CalculatorMainComponent } from './calculator/calculator-main/calculator-main.component'
 import {CalculatorFormComponent} from "./calculator/calculator-form/calculator-form.component";
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './admin-section/admin/admin.component';
 import {CalculatorComponent} from "./calculator/calculator.component";
 import { AuthComponent } from './auth/auth.component';
 import { CalculatorFormOsvcComponent } from './calculator/calculator-form/calculator-form-osvc/calculator-form-osvc.component';
@@ -19,7 +19,8 @@ import { CalculatorDefaultComponent } from './calculator/calculator-default/calc
 import { FooterComponent } from './footer/footer.component';
 import { RequestComponent } from './request/request.component';
 import { RequestDetailComponent } from './request/request-detail/request-detail.component';
-import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
+import { AdminDetailComponent } from './admin-section/admin-detail/admin-detail.component';
+import { AdminSectionComponent } from './admin-section/admin-section.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AdminDetailComponent } from './admin/admin-detail/admin-detail.componen
     FooterComponent,
     RequestComponent,
     RequestDetailComponent,
-    AdminDetailComponent
+    AdminDetailComponent,
+    AdminSectionComponent
   ],
   imports: [
     BrowserModule,

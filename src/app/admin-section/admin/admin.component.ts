@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 
-import {AuthService} from "../auth/auth.service";
-import {User} from "../auth/user.model";
+import {AuthService} from "../../auth/auth.service";
+import {User} from "../../auth/user.model";
 import {AdminResponseData, AdminService} from "./admin.service";
 import {oneRequest} from "./requests.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -46,7 +46,7 @@ export class AdminComponent implements OnInit {
   }
 
   openDetail() {
-    this.router.navigate(['detail'], { relativeTo: this.route });
+    this.router.navigate(['../detail'], { relativeTo: this.route });
   }
 
 }
