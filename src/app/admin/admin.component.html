@@ -8,10 +8,11 @@
   <table class="table">
     <tr>
       <th>
-        <select>
-          <option>Fyzická osoba</option>
-          <option>OSVČ</option>
-          <option>Právnická osoba</option>
+        <select [(ngModel)]="subjectSelection" (ngModelChange)="changeSubject($event)">
+          <option value="all">Vše</option>
+          <option value="natural">Fyzická osoba</option>
+          <option value="OSVC">OSVČ</option>
+          <option value="legal">Právnická osoba</option>
         </select>
       </th>
       <th>Příjmení <select><option>A-Z</option><option>Z-A</option></select></th>
@@ -19,7 +20,7 @@
       <th>Stav žádosti</th>
       <th></th>
     </tr>
-    <tr *ngFor="let request of allRequests">
+    <tr *ngFor="let request of displayedRequests">
       <td>{{ request.applicantType }}</td>
       <td>{{ request.surname }}</td>
       <td>{{ request.amount }}</td>

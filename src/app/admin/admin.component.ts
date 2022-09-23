@@ -13,8 +13,10 @@ import {oneRequest} from "./requests.model";
 })
 export class AdminComponent implements OnInit {
   loggedUser: User;
-  private userSub: Subscription;
   allRequests: oneRequest[];
+  displayedRequests: oneRequest[];
+  private userSub: Subscription;
+  subjectSelection: string = 'all';
 
   constructor(private authService: AuthService, private adminService: AdminService) {
 
@@ -35,9 +37,26 @@ export class AdminComponent implements OnInit {
     adminObs.subscribe(
       resData => {
         this.allRequests = resData;
-        console.log(this.allRequests)
+        this.displayedRequests = [...this.allRequests];
       }
     )
   }
+
+
+
+
+  changeSubject(event) {
+    if (event === "all") {
+      this.displayedRequests = [...this.allRequests];
+    } else if (event === "natural") {
+      this.displayedRequests = this.adminService.displayNaturalPerson(this.allRequests);
+    }  else if (event === "legal") {
+      this.displayedRequests = this.adminService.displayLegalPerson(this.allRequests);
+    } else if (event === "OSVC") {
+      this.displayedRequests = this.adminService.displayOSVC(this.allRequests);
+    }
+  }
+
+
 
 }

@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {oneRequest} from "./requests.model";
 
 export interface SingleRequest {
   position: string;
@@ -47,8 +48,24 @@ export class AdminService {
         'http://localhost:8000/request/list',
         {headers: new HttpHeaders({Authorization: "Bearer " + token})},
       )
+  }
 
+  displayOSVC(requests: oneRequest[]){
+    return requests.filter(obj => {
+      return obj.applicantType === "OSVC";
+    });
+  }
 
+  displayNaturalPerson(requests: oneRequest[]){
+    return requests.filter(obj => {
+      return obj.applicantType === "INDIVIDUAL";
+    });
+  }
+
+  displayLegalPerson(requests: oneRequest[]){
+    return requests.filter(obj => {
+      return obj.applicantType === "LEGAL_ENTITY";
+    });
   }
 
 
