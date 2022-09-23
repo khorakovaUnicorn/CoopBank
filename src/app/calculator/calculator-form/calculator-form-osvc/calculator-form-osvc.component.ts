@@ -24,14 +24,21 @@ export class CalculatorFormOsvcComponent implements OnInit {
       'phone': new FormControl(null,[Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(9)]),
       'address': new FormGroup({
         'street': new FormControl(),
-        'descNumber': new FormControl(),
+        'descNumber': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"),  this.AddressValidator.bind(this)]),
         'indicativeNumber': new FormControl(),
         'city': new FormControl(),
-        'postalCode': new FormControl()
+        'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(5)])
       }),
     });
   }
 
   onSubmit() {
+  }
+
+  AddressValidator(control: FormControl): {[s: string]: boolean} {
+    if (control.value % 2 === 0 ) {
+      return {'addressIsNotValid': true};
+    }
+    return null;
   }
 }
