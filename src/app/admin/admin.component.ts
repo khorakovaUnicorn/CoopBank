@@ -52,7 +52,7 @@ export class AdminComponent implements OnInit {
   filterSubject(event) {
     this.filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
-    if (this.sortedLoan && !this.sortedAlphabet) {
+    if (this.sortedLoan) {
       this.onLoanSorting(this.sortedLoan);
     } else if (this.sortedAlphabet) {
       this.onAlphabetSorting(this.sortedAlphabet);
@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit {
   filterState(event) {
     this.filteredByState = this.adminService.displayFilteredState(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
-    if (this.sortedLoan && !this.sortedAlphabet) {
+    if (this.sortedLoan) {
       this.onLoanSorting(this.sortedLoan);
     } else if (this.sortedAlphabet) {
       this.onAlphabetSorting(this.sortedAlphabet);
