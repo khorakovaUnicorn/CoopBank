@@ -19,6 +19,7 @@ export class AdminComponent implements OnInit {
   filteredByState: oneRequest[];
   subjectSelection: string = 'all';
   requestStateSelection: string = 'all';
+  sortedAlphabet = 'AZ';
   private userSub: Subscription;
 
 
@@ -48,9 +49,6 @@ export class AdminComponent implements OnInit {
     )
   }
 
-
-
-
   filterSubject(event) {
     this.filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
@@ -59,6 +57,10 @@ export class AdminComponent implements OnInit {
   filterState(event) {
     this.filteredByState = this.adminService.displayFilteredState(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
+  }
+
+  onAlphabetSorting(event) {
+
   }
 
 
