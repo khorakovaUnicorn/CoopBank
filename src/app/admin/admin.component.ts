@@ -52,15 +52,17 @@ export class AdminComponent implements OnInit {
   filterSubject(event) {
     this.filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
+    this.onAlphabetSorting(this.sortedAlphabet);
   }
 
   filterState(event) {
     this.filteredByState = this.adminService.displayFilteredState(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
+    this.onAlphabetSorting(this.sortedAlphabet);
   }
 
   onAlphabetSorting(event) {
-    if (this.sortedAlphabet === "AZ") {
+    if (event === "AZ") {
       this.displayedRequests = this.displayedRequests.sort(
         (a, b) => (a.surname > b.surname) ? 1 : ((b.surname > a.surname) ? -1 : 0)
       )
