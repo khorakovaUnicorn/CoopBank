@@ -19,12 +19,12 @@ export class AdminComponent implements OnInit {
   filteredByState: oneRequest[];
   subjectSelection: string = 'all';
   requestStateSelection: string = 'all';
-  sortedAlphabet = 'AZ';
+  sortedAlphabet = '';
+  sortedLoan = '';
   private userSub: Subscription;
 
 
   constructor(private authService: AuthService, private adminService: AdminService) {
-
   }
 
   ngOnInit() {
@@ -52,13 +52,21 @@ export class AdminComponent implements OnInit {
   filterSubject(event) {
     this.filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
-    this.onAlphabetSorting(this.sortedAlphabet);
+    if (this.sortedLoan && !this.sortedAlphabet) {
+      this.onLoanSorting(this.sortedLoan);
+    } else if (this.sortedAlphabet) {
+      this.onAlphabetSorting(this.sortedAlphabet);
+    }
   }
 
   filterState(event) {
     this.filteredByState = this.adminService.displayFilteredState(this.allRequests, event);
     this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
-    this.onAlphabetSorting(this.sortedAlphabet);
+    if (this.sortedLoan && !this.sortedAlphabet) {
+      this.onLoanSorting(this.sortedLoan);
+    } else if (this.sortedAlphabet) {
+      this.onAlphabetSorting(this.sortedAlphabet);
+    }
   }
 
   onAlphabetSorting(event) {
@@ -66,10 +74,24 @@ export class AdminComponent implements OnInit {
       this.displayedRequests = this.displayedRequests.sort(
         (a, b) => (a.surname > b.surname) ? 1 : ((b.surname > a.surname) ? -1 : 0)
       )
-    } else {
+    } else if (event === "ZA") {
       this.displayedRequests = this.displayedRequests.sort(
         (a, b) => (a.surname < b.surname) ? 1 : ((b.surname < a.surname) ? -1 : 0)
       )
     }
+    this.sortedLoan = '';
+  }
+
+  onLoanSorting(event) {
+    if (event === "min") {
+      this.displayedRequests = this.displayedRequests.sort(
+        (a, b) => (a.amount > b.amount) ? 1 : ((b.amount > a.amount) ? -1 : 0)
+      )
+    } else if (event === "max") {
+      this.displayedRequests = this.displayedRequests.sort(
+        (a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0)
+      )
+    }
+    this.sortedAlphabet = '';
   }
 }

@@ -19,7 +19,6 @@ export type AdminResponseData = SingleRequest[];
 
 @Injectable({providedIn: 'root'})
 export class AdminService {
-  // requests = new BehaviorSubject<AdminResponseData>(null);
 
   constructor(private http: HttpClient) {
   }
@@ -95,6 +94,4 @@ export class AdminService {
       });
     });
   }
-
-  AlphabetSorting () {}
 }
