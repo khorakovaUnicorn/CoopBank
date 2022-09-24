@@ -60,8 +60,14 @@ export class AdminComponent implements OnInit {
   }
 
   onAlphabetSorting(event) {
-
+    if (this.sortedAlphabet === "AZ") {
+      this.displayedRequests = this.displayedRequests.sort(
+        (a, b) => (a.surname > b.surname) ? 1 : ((b.surname > a.surname) ? -1 : 0)
+      )
+    } else {
+      this.displayedRequests = this.displayedRequests.sort(
+        (a, b) => (a.surname < b.surname) ? 1 : ((b.surname < a.surname) ? -1 : 0)
+      )
+    }
   }
-
-
 }
