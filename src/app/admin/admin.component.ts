@@ -42,9 +42,9 @@ export class AdminComponent implements OnInit {
     adminObs.subscribe(
       resData => {
         this.allRequests = resData;
-        this.displayedRequests = [...this.allRequests];
-        this.filteredBySubject = [...this.allRequests];
-        this.filteredByState = [...this.allRequests]
+        if (!this.displayedRequests) {this.displayedRequests = [...this.allRequests]}
+        if (!this.filteredBySubject) {this.filteredBySubject = [...this.allRequests]}
+        if (!this.filteredByState) {this.filteredByState = [...this.allRequests]}
       }
     )
   }

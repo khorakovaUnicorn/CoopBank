@@ -31,3 +31,7 @@
   padding: 5px;
   margin: 5px;
 }
+
+option {
+  border-width: 1px;
+}
