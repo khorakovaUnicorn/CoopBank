@@ -29,9 +29,21 @@
 
 .table button {
   padding: 5px;
-  margin: 5px;
+  margin: 2px;
+  border-radius: 0.2em;
+  border: 1px solid gray;
 }
 
 option {
   border-width: 1px;
+}
+
+.approve {
+  border-color: #00843d;
+  background-color: #C4f1af;
+}
+
+.reject {
+  border-color: red;
+  background-color: #F5cece;
 }
