@@ -5,6 +5,7 @@ import {AuthService} from "../auth/auth.service";
 import {User} from "../auth/user.model";
 import {AdminResponseData, AdminService} from "./admin.service";
 import {oneRequest} from "./requests.model";
+import {LoanRequest} from "../calculator/calculator-form/loan-request.model";
 
 @Component({
   selector: 'app-admin',
@@ -41,6 +42,17 @@ export class AdminComponent implements OnInit {
       resData => {
         this.allRequests = resData;
         if (!this.displayedRequests) {this.displayedRequests = [...this.allRequests]}
+      }
+    )
+  }
+
+  onApprove(request: oneRequest) {
+    let requestObs: Observable<LoanRequest>;
+    requestObs = this.adminService.requestApprove(request, this.loggedUser.token);
+
+    requestObs.subscribe(
+      resData => {
+        console.log(resData)
       }
     )
   }

@@ -57,7 +57,7 @@
         <td>{{ request.amount }}</td>
         <td>{{ request.status }}</td>
         <td>
-          <button class="approve" *ngIf="request.status === 'PENDING'">Schválit</button>
+          <button class="approve" *ngIf="request.status === 'PENDING'" (click)="onApprove(request)">Schválit</button>
           <button class="reject" *ngIf="request.status === 'PENDING'">Zamítnout</button>
           <button>Detail</button>
         </td>

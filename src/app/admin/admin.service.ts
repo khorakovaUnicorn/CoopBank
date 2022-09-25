@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {oneRequest} from "./requests.model";
+import {LoanRequest} from "../calculator/calculator-form/loan-request.model";
 
 export interface SingleRequest {
   position: string;
@@ -39,13 +40,19 @@ export class AdminService {
   //   },
   //   …
   // ]
-
-
   getAllRequests(token: string) {
     return this.http
       .get<AdminResponseData>(
         'http://localhost:8000/request/list',
         {headers: new HttpHeaders({Authorization: "Bearer " + token})},
+      )
+  }
+
+  requestApprove(request: oneRequest, token: string) {
+    return this.http.put<LoanRequest>(
+      'http://localhost:8000/request/' + request.id + '/approve',
+      request.status = 'APPROVED',
+      {headers: new HttpHeaders({Authorization: "Bearer " + token})}
       )
   }
 
