@@ -29,7 +29,7 @@ export class CalculatorFormLegalEntityComponent implements OnInit {
         'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(5)])
       }),
       'companyName': new FormControl(null, [Validators.required]),
-      'position': new FormControl()
+      'position': new FormControl("Člen/ka představenstva")
     });
   }
 

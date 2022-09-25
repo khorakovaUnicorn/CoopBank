@@ -18,8 +18,8 @@ export class CalculatorFormIndividualComponent implements OnInit {
   ngOnInit(): void {
     this.loanFormIndividual = new FormGroup({
       'applicantType': new FormControl(ApplicantType.INDIVIDUAL),
-      'name': new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
-      'surname': new FormControl(null, [Validators.required, Validators.pattern("[a-zA-Z ]*")]),
+      'name': new FormControl(null, [Validators.required]),
+      'surname': new FormControl(null, [Validators.required]),
       'birthNum': new FormControl(null,[Validators.pattern("^[0-9]+[0-9]*$")]),
       'nationality': new FormControl("Česká republika"),
       'email': new FormControl(null, [Validators.required, Validators.email]),
