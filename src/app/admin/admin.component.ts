@@ -15,10 +15,8 @@ export class AdminComponent implements OnInit {
   loggedUser: User;
   allRequests: oneRequest[];
   displayedRequests: oneRequest[];
-  filteredBySubject: oneRequest[];
-  filteredByState: oneRequest[];
   subjectSelection: string = 'all';
-  requestStateSelection: string = 'all';
+  stateSelection: string = 'all';
   sortedAlphabet = '';
   sortedLoan = '';
   private userSub: Subscription;
@@ -43,25 +41,14 @@ export class AdminComponent implements OnInit {
       resData => {
         this.allRequests = resData;
         if (!this.displayedRequests) {this.displayedRequests = [...this.allRequests]}
-        if (!this.filteredBySubject) {this.filteredBySubject = [...this.allRequests]}
-        if (!this.filteredByState) {this.filteredByState = [...this.allRequests]}
       }
     )
   }
 
-  filterSubject(event) {
-    this.filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, event);
-    this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
-    if (this.sortedLoan) {
-      this.onLoanSorting(this.sortedLoan);
-    } else if (this.sortedAlphabet) {
-      this.onAlphabetSorting(this.sortedAlphabet);
-    }
-  }
-
-  filterState(event) {
-    this.filteredByState = this.adminService.displayFilteredState(this.allRequests, event);
-    this.displayedRequests = this.adminService.filterFinal(this.filteredBySubject, this.filteredByState);
+  onFiltering(){
+    let filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, this.subjectSelection);
+    let filteredByState = this.adminService.displayFilteredState(this.allRequests, this.stateSelection);
+    this.displayedRequests = this.adminService.filterFinal(filteredBySubject, filteredByState);
     if (this.sortedLoan) {
       this.onLoanSorting(this.sortedLoan);
     } else if (this.sortedAlphabet) {

@@ -12,7 +12,7 @@
       </tr>
       <tr>
         <td>
-          <select [(ngModel)]="subjectSelection" (ngModelChange)="filterSubject($event)">
+          <select [(ngModel)]="subjectSelection" (ngModelChange)="onFiltering()">
             <option value="all">Vše</option>
             <option value="natural">Fyzická osoba</option>
             <option value="OSVC">OSVČ</option>
@@ -20,7 +20,7 @@
           </select>
         </td>
         <td>
-          <select [(ngModel)]="requestStateSelection" (ngModelChange)="filterState($event)">
+          <select [(ngModel)]="stateSelection" (ngModelChange)="onFiltering()">
             <option value="all">Vše</option>
             <option value="pending">Čekající</option>
             <option value="cancelled">Zamítnuté</option>
