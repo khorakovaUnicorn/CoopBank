@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable, Subject} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {Subject} from "rxjs";
 import {LoanRequest} from "./calculator-form/loan-request.model";
 import {ActivatedRoute} from "@angular/router";
 
@@ -12,12 +12,6 @@ export class CalculatorService {
   numOfMonths: number = 27; //TODO -||-
   requestResponse = new Subject<number>();
   reqDetResponse = new Subject<LoanRequest>();
-
-  requestEditMode = new Subject<boolean>;
-
-  changeEditMode() {
-
-  }
 
   fetchedData = new Subject<{
     monthlyPayment: number,
@@ -150,6 +144,7 @@ export class CalculatorService {
         this.formData.numOfMonths = response.numOfMonths;
         this.formData.address = response.address;
         this.formData.status = response.status;
+
       this.reqDetResponse.next(this.formData);
     }, error => {
       this.reqDetResponse.error('Připojení k serveru se nezdařilo!');

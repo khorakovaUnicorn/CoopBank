@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CalculatorService} from "../calculator/calculator.service";
 import {Subscription} from "rxjs";
 import {LoanRequest} from "../calculator/calculator-form/loan-request.model";
+import {RequestEditService} from "./request-edit.service";
 
 @Component({
   selector: 'app-request',
@@ -16,7 +17,8 @@ export class RequestComponent implements OnInit, OnDestroy {
 
   requestSub: Subscription;
 
-  constructor(private calcService: CalculatorService) { }
+  constructor(private calcService: CalculatorService,
+              private reqEditService: RequestEditService) { }
 
   ngOnInit(): void {
     this.calcService.fetchRequestData();
@@ -44,12 +46,13 @@ export class RequestComponent implements OnInit, OnDestroy {
 
   switchEditMode() {
     this.editMode = !this.editMode;
-    this.calcService.requestEditMode.next(this.editMode);
+    this.reqEditService.requestEditMode.next(this.editMode);
   }
 
   submitEdit() {
     this.switchEditMode();
 
+    this.reqEditService.submitEdit();
     //dalsi funkce
   }
 
