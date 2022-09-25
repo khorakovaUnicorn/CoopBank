@@ -56,6 +56,14 @@ export class AdminService {
       )
   }
 
+  requestReject(request: oneRequest, token: string) {
+    return this.http.put<LoanRequest>(
+      'http://localhost:8000/request/' + request.id + '/cancel',
+      request.status = 'CANCELLED',
+      {headers: new HttpHeaders({Authorization: "Bearer " + token})}
+    )
+  }
+
   displayFilteredSubject(requests: oneRequest[], subject: string) {
     if (subject === 'all') {
       return requests;

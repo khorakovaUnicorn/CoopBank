@@ -49,12 +49,13 @@ export class AdminComponent implements OnInit {
   onApprove(request: oneRequest) {
     let requestObs: Observable<LoanRequest>;
     requestObs = this.adminService.requestApprove(request, this.loggedUser.token);
+    requestObs.subscribe();
+  }
 
-    requestObs.subscribe(
-      resData => {
-        console.log(resData)
-      }
-    )
+  onReject(request: oneRequest) {
+    let requestObs: Observable<LoanRequest>;
+    requestObs = this.adminService.requestReject(request, this.loggedUser.token);
+    requestObs.subscribe();
   }
 
   onFiltering(){
