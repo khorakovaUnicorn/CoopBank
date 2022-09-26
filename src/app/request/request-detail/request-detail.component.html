@@ -7,7 +7,7 @@
     <div class="reqAmDur">
       <div class="reqText">
         <h4>Částka:</h4>
-        <p *ngIf="!editMode">{{amount}} Kč</p>
+        <p *ngIf="!editMode">{{amount | spacing }} Kč</p>
       </div>
       <div class="reqSlide" *ngIf="editMode">
         <input type="range" min="6000" max="1200000" step="1000" value="{{amount}}" (input)="amtChange($event)">
@@ -67,7 +67,7 @@
   </div>
   <div class="reqData">
     <h4>Telefonní číslo:</h4>
-    <p>+420 {{loanDetail.phone}}</p>
+    <p>+420 {{loanDetail.phone | spacing}}</p>
   </div>
   <div class="addressData">
     <h4>Adresa</h4>
