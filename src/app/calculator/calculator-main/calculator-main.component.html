@@ -47,7 +47,7 @@
       <div class="calculatorMainFormResult">
         <div class="calcMainFormResItem">
           <h4>Měsíční splátka: </h4>
-          <div class="calculatorMainFormResVal">{{monthlyPayment}} Kč</div>
+          <div class="calculatorMainFormResVal">{{monthlyPayment | spacing}} Kč</div>
         </div>
 
         <div class="horizontalSeparator"></div>
@@ -68,12 +68,12 @@
 
         <div class="calcMainFormResItem" *ngIf="fixedFee !== 0 || fixedFee !== undefined">
           <h4>Fixní poplatek: </h4>
-          <div class="calculatorMainFormResVal">{{fixedFee}} Kč</div>
+          <div class="calculatorMainFormResVal">{{fixedFee | spacing}} Kč</div>
         </div>
       </div>
       <div class="calcMainFormSum">
         <h4>Celková splatná částka: </h4>
-        <div class="calcMainFormSumRes">{{overallAmount}} Kč</div>
+        <div class="calcMainFormSumRes">{{overallAmount | spacing}} Kč</div>
       </div>
     </div>
 
