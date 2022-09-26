@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 
 import {AuthService} from "../../auth/auth.service";
 import {User} from "../../auth/user.model";
 import {AdminService} from "./admin.service";
 import {oneRequest} from "./requests.model";
-import {LoanRequest} from "../../calculator/calculator-form/loan-request.model";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -24,6 +23,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   error = null;
   private userSub: Subscription;
   private requestListSub: Subscription;
+  private requestApproveSub: Subscription;
+  private requestRejectSub: Subscription;
+
 
   constructor(
     private authService: AuthService,
@@ -63,36 +65,34 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   onApprove(request: oneRequest) {
     this.error = null;
-    let requestObs: Observable<LoanRequest>;
-    requestObs = this.adminService.requestApprove(request, this.loggedUser.token);
-    requestObs.subscribe( (resData) => {
-      request.status = resData.status;
-      },
-      error => {
-        if (error.error.error === "unknown user token") {
-          this.error = "Přístup zamítnut, nesprávná autorizace"
-        } else {
-          this.error = "Nelze se připojit k serveru"
+    this.requestApproveSub = this.adminService.requestApprove(request, this.loggedUser.token)
+      .subscribe((resData) => {
+          request.status = resData.status;
+        },
+        error => {
+          if (error.error.error === "unknown user token") {
+            this.error = "Přístup zamítnut, nesprávná autorizace"
+          } else {
+            this.error = "Nelze se připojit k serveru"
+          }
         }
-      }
-    )
+      )
   }
 
   onReject(request: oneRequest) {
     this.error = null;
-    let requestObs: Observable<LoanRequest>;
-    requestObs = this.adminService.requestReject(request, this.loggedUser.token);
-    requestObs.subscribe( (resData) => {
-      request.status = resData.status;
-      },
-      error => {
-        if (error.error.error === "unknown user token") {
-          this.error = "Přístup zamítnut, nesprávná autorizace"
-        } else {
-          this.error = "Nelze se připojit k serveru"
+    this.requestRejectSub = this.adminService.requestReject(request, this.loggedUser.token)
+      .subscribe((resData) => {
+          request.status = resData.status;
+        },
+        error => {
+          if (error.error.error === "unknown user token") {
+            this.error = "Přístup zamítnut, nesprávná autorizace"
+          } else {
+            this.error = "Nelze se připojit k serveru"
+          }
         }
-      }
-    )
+      )
   }
 
   onFiltering() {
@@ -135,17 +135,18 @@ export class AdminComponent implements OnInit, OnDestroy {
   openDetail(requestId: string) {
     // this.router.navigate([`../detail/${requestId}`], { relativeTo: this.route });
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`../detail/${requestId}`],{ relativeTo: this.route })
+      this.router.createUrlTree([`../detail/${requestId}`], {relativeTo: this.route})
     );
 
     window.open(url, '_blank');
   }
 
 
-
   ngOnDestroy() {
     this.requestListSub.unsubscribe();
     this.userSub.unsubscribe();
+    if (this.requestRejectSub) {this.requestRejectSub.unsubscribe()}
+    if (this.requestApproveSub) {this.requestApproveSub.unsubscribe()}
   }
 
 }
