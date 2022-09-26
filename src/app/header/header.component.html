@@ -7,7 +7,7 @@
     <a class="nav">Kontakt</a>
     </span>
   <span class="nav_right">
-      <a class="nav" id="admin" routerLink="/admin"
+      <a class="nav" id="admin" routerLink="/admin/allRequest"
          *ngIf="loggedUser && (loggedUser.roles.includes('ADMIN') || loggedUser.roles.includes('SUPERVIZOR'))">
         Žádosti
       </a>

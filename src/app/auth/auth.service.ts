@@ -17,6 +17,10 @@ export class AuthService {
 
 
   constructor(private http: HttpClient) {
+   let localStorageUser = localStorage.getItem('user')
+    if (localStorageUser !==null) {
+      this.user.next(JSON.parse(localStorageUser))
+    }
   }
 
   // Headers needed for login GET method: Authorization: base64(login:password)
@@ -41,6 +45,7 @@ export class AuthService {
 
   userLogout(){
     this.user.next(null);
+    localStorage.removeItem('user')
   }
 
   private handleAuthentication(
@@ -56,6 +61,7 @@ export class AuthService {
       token
     );
     this.user.next(user);
+    localStorage.setItem('user',JSON.stringify(user));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
