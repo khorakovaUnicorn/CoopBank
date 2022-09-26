@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthResponseData, AuthService} from "./auth.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthService} from "./auth.service";
 import {NgForm} from "@angular/forms";
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   error = null;
   private userSub: Subscription;
 
@@ -24,28 +24,28 @@ export class AuthComponent implements OnInit {
     const password = form.value.password;
     const encoded = btoa(login + ":" + password);
 
-    let authObs: Observable<AuthResponseData>
-
-    authObs = this.authService.userLogin(encoded)
-
-    authObs.subscribe(
-      () => {
-        this.error = null;
-      },
-      error => {
-        if (error.message === "username or password incorrect") {
-          this.error = "Nesprávné přihlašovací údaje"
-        } else if (error.message === "Connection refused!") {
-          this.error = "Nelze se připojit k serveru";
-        } else {
-          this.error = "Neznámý error"
+    this.userSub = this.authService.userLogin(encoded)
+      .subscribe(
+        user => {
+          if (user && (user.roles.includes("ADMIN") || user.roles.includes("SUPERVIZOR"))) {
+            this.router.navigate(['/admin/allRequest'])
+          }
+        },
+        error => {
+          this.error = null;
+          if (error.message === "username or password incorrect") {
+            this.error = "Nesprávné přihlašovací údaje"
+          } else if (error.message === "Connection refused!") {
+            this.error = "Nelze se připojit k serveru";
+          } else {
+            this.error = "Neznámý error"
+          }
         }
-      }
-    )
-    this.userSub = this.authService.user.subscribe(user => {
-      if (user && (user.roles.includes("ADMIN") || user.roles.includes("SUPERVIZOR"))) {
-        this.router.navigate(['/admin/allRequest'])
-      }
-    });
+      )
   }
+
+  ngOnDestroy() {
+    if (this.userSub) {this.userSub.unsubscribe()}
+  }
+
 }
