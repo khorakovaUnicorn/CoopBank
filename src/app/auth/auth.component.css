@@ -27,3 +27,7 @@ label {
 .error {
   color: red;
 }
+
+input {
+  border-width: 1px;
+}
