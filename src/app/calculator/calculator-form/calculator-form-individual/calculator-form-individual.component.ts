@@ -20,7 +20,7 @@ export class CalculatorFormIndividualComponent implements OnInit {
       'applicantType': new FormControl(ApplicantType.INDIVIDUAL),
       'name': new FormControl(null, [Validators.required]),
       'surname': new FormControl(null, [Validators.required]),
-      'birthNum': new FormControl(null,[Validators.pattern("^[0-9]+[0-9]*$")]),
+      'birthNum': new FormControl(null,[Validators.pattern("[0-9]{2,6}-?[0-9]{2,10}\\/[0-9]{3,4}")]),
       'nationality': new FormControl("Česká republika"),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'phone': new FormControl(null,[Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(9)]),
