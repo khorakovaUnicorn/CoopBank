@@ -35,7 +35,7 @@ export class AdminService {
   requestApprove(request: oneRequest, token: string) {
     return this.http.put<LoanRequest>(
       'http://localhost:8000/request/' + request.id + '/approve',
-      request.status = 'APPROVE',
+      null,
       {headers: new HttpHeaders({Authorization: "Bearer " + token})}
       )
   }
@@ -43,7 +43,7 @@ export class AdminService {
   requestReject(request: oneRequest, token: string) {
     return this.http.put<LoanRequest>(
       'http://localhost:8000/request/' + request.id + '/cancel',
-      request.status = 'CANCELLED',
+      null,
       {headers: new HttpHeaders({Authorization: "Bearer " + token})}
     )
   }

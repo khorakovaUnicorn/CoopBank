@@ -64,8 +64,10 @@ export class AdminComponent implements OnInit, OnDestroy {
   onApprove(request: oneRequest) {
     this.error = null;
     let requestObs: Observable<LoanRequest>;
-    requestObs = this.adminService.requestApprove(request, this.loggedUser.token +1);
-    requestObs.subscribe( () => {},
+    requestObs = this.adminService.requestApprove(request, this.loggedUser.token);
+    requestObs.subscribe( (resData) => {
+      request.status = resData.status;
+      },
       error => {
         if (error.error.error === "unknown user token") {
           this.error = "Přístup zamítnut, nesprávná autorizace"
@@ -79,8 +81,10 @@ export class AdminComponent implements OnInit, OnDestroy {
   onReject(request: oneRequest) {
     this.error = null;
     let requestObs: Observable<LoanRequest>;
-    requestObs = this.adminService.requestReject(request, this.loggedUser.token +1);
-    requestObs.subscribe( () => {},
+    requestObs = this.adminService.requestReject(request, this.loggedUser.token);
+    requestObs.subscribe( (resData) => {
+      request.status = resData.status;
+      },
       error => {
         if (error.error.error === "unknown user token") {
           this.error = "Přístup zamítnut, nesprávná autorizace"

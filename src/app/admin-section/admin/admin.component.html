@@ -1,7 +1,11 @@
 <div class="admin">
   <div class="whoIsLogged">
     <p>{{ loggedUser ? loggedUser.name : "" }}</p>
-    <p>{{ loggedUser ? loggedUser.roles : "" }}</p>
+    <p>
+      <span *ngIf="loggedUser.roles.includes('ADMIN')">Bankovní poradce</span>
+      <span *ngIf="loggedUser.roles.length > 1">, </span>
+      <span *ngIf="loggedUser.roles.includes('SUPERVIZOR')">Admin</span>
+    </p>
   </div>
 
   <div>
@@ -55,7 +59,6 @@
         <th></th>
       </tr>
       <tr *ngFor="let request of displayedRequests">
-
         <td>{{ request.applicantType }}</td>
         <td>{{ request.surname }}</td>
         <td>{{ request.amount }}</td>
@@ -67,6 +70,7 @@
         </td>
       </tr>
     </table>
+    <p *ngIf="!displayedRequests[0]">Žádná data k zobrazení</p>
   </div>
 </div>
 
