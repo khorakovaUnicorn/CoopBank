@@ -46,7 +46,6 @@
         <input type="text" id="descNumber" formControlName="descNumber">
         <span *ngIf="!loanFormIndividual.get('address.descNumber').valid && loanFormIndividual.get('address.descNumber').touched">
           <span class="warning-message" *ngIf="loanFormIndividual.get('address.descNumber').errors['pattern']">Vyplňte pouze číslice.</span>
-        <span class="warning-message" *ngIf="loanFormIndividual.get('address.descNumber').errors['addressIsNotValid']">Číslo musí být liché.</span>
         </span>
       </div>
         <label for="indicativeNumber">Číslo orientační</label>
