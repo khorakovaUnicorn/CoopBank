@@ -48,6 +48,8 @@ export class AdminService {
       )
   }
 
+
+
   requestApprove(request: oneRequest, token: string) {
     return this.http.put<LoanRequest>(
       'http://localhost:8000/request/' + request.id + '/approve',
@@ -108,5 +110,11 @@ export class AdminService {
         return object1.id === object2.id;
       });
     });
+  }
+
+  getDetailData(requestId: string) {
+    return this.http.get<LoanRequest>(
+      'http://localhost:8000/request/' + requestId
+    )
   }
 }

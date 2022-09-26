@@ -1,12 +1,22 @@
-.admin {
-  position: absolute;
+.whoIsLoggedPannel {
+  padding: 20px 60px;
   margin-top: 7em;
-  left: 50%;
-  transform: translateX(-50%);
+  background-color: #00843d;
+  display: flex;
+  justify-content: right;
 }
 
 .whoIsLogged {
-  margin-left: auto;
+  color: white;
+  font-size: 18px;
+
+}
+
+.admin {
+  position: absolute;
+  margin-top: 9em;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .table {

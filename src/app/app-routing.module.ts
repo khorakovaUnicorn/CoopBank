@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent},
   { path: 'admin', component: AdminSectionComponent, canActivate: [AuthGuard], children: [
       {path: 'allRequest', component: AdminComponent},
-      {path: 'detail', component: AdminDetailComponent}
+      {path: 'detail/:id', component: AdminDetailComponent}
     ]},
   { path: 'request', component: RequestComponent}
 
