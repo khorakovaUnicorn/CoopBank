@@ -24,6 +24,8 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
   overallAmount: number;
   fixedFee: number;
 
+  editMode:boolean = false;
+
   constructor(private calcService: CalculatorService,
               private router: Router) {
   }
@@ -122,9 +124,7 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
   }
 
   selectVal(e) {
-    if(e.target.value.slice(-3) === ' Kč') {
-      e.target.value = e.target.value.slice(0, -3);
-    }
+    this.editMode = true;
     e.target.select();
     setTimeout(() => {
       document.addEventListener('click', eventTarget => {
@@ -145,7 +145,8 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
   }
 
   changeAmtManually() {
-    let newVal = +((<HTMLInputElement>document.getElementsByClassName('calculatorMainFormRgVal')[0]).value);
+    let newVal = parseInt((<HTMLInputElement>document.getElementsByClassName('valueChangeHolder')[0]).value);
+    console.log('newVal: '+ typeof newVal + ' = '+newVal);
     this.amountValue = this.roundToThousand(newVal);
     this.calcService.sendCalcData(this.amountValue, this.numOfMonths);
   }
@@ -156,6 +157,8 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
 
     if(num < 6000) {
       rest = 6000;
+    } else if (num > 1200000) {
+      rest = 1200000;
     } else {
       if(rest !== 0) {
         rest = rest / 1000;
