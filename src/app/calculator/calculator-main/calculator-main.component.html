@@ -1,22 +1,28 @@
 <div class="calculatorMain">
-  <form id="calculatorMainForm" #formGroup [formGroup]="calculateForm" (ngSubmit)="onSubmit()">
+  <form id="calculatorMainForm" #formGroup [formGroup]="calculateForm">
     <div class="calculatorMainFormItem">
-      <label for="amount">Částka: </label>
+      <div class="rangeHold">
+        <label for="amount">Částka: </label>
+        <input
+          type="range"
+          min="5000"
+          max="1200000"
+          id="amount"
+          step="1000"
+          name="amount"
+          formControlName="amount"
+          value="{{amountValue}}"
+          (input)="amtChange($event)"
+        >
+      </div>
       <input
-        type="range"
-        min="5000"
-        max="1200000"
-        id="amount"
-        step="1000"
-        name="amount"
-        formControlName="amount"
-        [value]="amountValue"
-        (input)="amtChange($event)"
+        type="text"
+        class="calculatorMainFormRgVal"
+        value="{{amountValue}} Kč"
+        (click)="selectVal($event)"
       >
     </div>
-    <div class="calculatorMainFormRgVal">
-      {{amountValue}} Kč
-    </div>
+
     <div class="calculatorMainFormItem">
       <label for="duration">Doba splácení: </label>
       <input
@@ -30,9 +36,7 @@
         (input)="durChange($event)"
       >
     </div>
-    <div class="calculatorMainFormRgVal">
-      {{durationMessage}}
-    </div>
+    <div class="calculatorMainFormRgVal">{{durationMessage}}</div>
     <div class="resultHolder" *ngIf="hasBeenTouched">
       <div class="calculatorMainFormResult">
         <div class="calcMainFormResItem">
@@ -68,10 +72,11 @@
     </div>
 
     <input
-      type="submit"
+      type="button"
       value="Chci půjčku!"
       class="calculatorMainFormSubmit"
       [disabled]="!hasBeenTouched"
+      (click)="onSubmit()"
     >
 
     <div class="errMess"> {{errMess}} </div>

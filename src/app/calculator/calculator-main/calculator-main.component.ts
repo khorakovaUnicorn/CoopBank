@@ -121,4 +121,52 @@ export class CalculatorMainComponent implements OnInit, OnDestroy{
     this.durationMessage = firstMess + connector + scdMess;
   }
 
+  selectVal(e) {
+    if(e.target.value.slice(-3) === ' Kč') {
+      e.target.value = e.target.value.slice(0, -3);
+    }
+    e.target.select();
+    setTimeout(() => {
+      document.addEventListener('click', eventTarget => {
+        if(eventTarget.target !== e.target) {
+          this.changeAmtManually();
+        }
+      }, {once: true});
+    }, 0);
+    let enterListener = e.target.addEventListener('keypress', enterEvent => {
+      console.log(enterEvent.key);
+      if(enterEvent.key === 'Enter') {
+        this.changeAmtManually();
+        e.target.removeEventListener('keypress', enterListener);
+      }
+
+      //TODO enterem jde zadat hodnota několikrát - způsobuje errory
+    }/*, {once: true}*/);
+  }
+
+  changeAmtManually() {
+    let newVal = +((<HTMLInputElement>document.getElementsByClassName('calculatorMainFormRgVal')[0]).value);
+    this.amountValue = this.roundToThousand(newVal);
+    this.calcService.sendCalcData(this.amountValue, this.numOfMonths);
+  }
+
+  roundToThousand(num: number) {
+    let rest = num % 1000;
+    num = num - rest;
+
+    if(num < 6000) {
+      rest = 6000;
+    } else {
+      if(rest !== 0) {
+        rest = rest / 1000;
+        rest = Math.round(rest);
+        rest = rest * 1000;
+        rest = num + rest;
+      } else {
+        rest = num;
+      }
+    }
+    return rest;
+  }
+
 }
