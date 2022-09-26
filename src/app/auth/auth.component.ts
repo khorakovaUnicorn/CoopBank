@@ -33,7 +33,6 @@ export class AuthComponent implements OnInit {
         this.error = null;
       },
       error => {
-        // this.error = error.message;
         if (error.message === "username or password incorrect") {
           this.error = "Nesprávné přihlašovací údaje"
         } else if (error.message === "Connection refused!") {

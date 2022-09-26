@@ -24,23 +24,7 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  // GET, Header: Authorization: Bearer <token>
-  // Response:
-  // [{
-  //      position: string,
-  //      amount: number,
-  //      numOfMonths: number,
-  //      created: DateTime,
-  //      status: string,
-  //      id: string,
-  //      name: string,
-  //      surname: string,
-  //      companyName: string,
-  //      applicantType: string
-  //   },
-  //   …
-  // ]
-  getAllRequests(token: string) {
+   getAllRequests(token: string) {
     return this.http
       .get<AdminResponseData>(
         'http://localhost:8000/request/list',
@@ -51,7 +35,7 @@ export class AdminService {
   requestApprove(request: oneRequest, token: string) {
     return this.http.put<LoanRequest>(
       'http://localhost:8000/request/' + request.id + '/approve',
-      request.status = 'APPROVED',
+      request.status = 'APPROVE',
       {headers: new HttpHeaders({Authorization: "Bearer " + token})}
       )
   }

@@ -46,3 +46,7 @@ option {
   border-color: red;
   background-color: #F5cece;
 }
+
+.error {
+  color: red;
+}
