@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {oneRequest} from "./requests.model";
-import {LoanRequest} from "../calculator/calculator-form/loan-request.model";
+import {LoanRequest} from "../../calculator/calculator-form/loan-request.model";
 
 export interface SingleRequest {
   position: string;
