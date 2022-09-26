@@ -85,6 +85,13 @@ select:focus {
   border: 1px solid rgba(0, 132, 61, 0.71);
 }
 
+.loan-form-submit:disabled:hover {
+  cursor: default;
+  background: rgba(0, 132, 61, 0.71);
+  border: 1px solid rgba(0, 132, 61, 0.71);
+  color: white;
+}
+
 .warning-message {
   color: red;
 }
@@ -104,3 +111,8 @@ input.ng-invalid.ng-touched {
   margin-right: auto;
   font-weight: bold;
 }
+
+.faultyAddress {
+  color: red !important;
+}
+

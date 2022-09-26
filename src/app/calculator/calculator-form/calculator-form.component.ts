@@ -54,13 +54,19 @@ export class CalculatorFormComponent implements OnInit {
 
     this.responseSub = this.calcService.requestResponse.subscribe(response => {
       console.log(response);
+      if(response.error) {
+        if(response.error['error'].errorMessage === 'error - even descriptive number') {
+          this.errMess = 'Neplatná adresa!';
+        }
+        console.log(response.error['error'].errorMessage);
+      } else {
+        this.router.navigate(['/request'], {queryParams: {
+            reqID: response.value
+          }})
+      }
 
-      this.router.navigate(['/request'], {queryParams: {
-          reqID: response
-        }})
-    }, error => {
-      this.errMess = error; //TODO rozdělit error na chybu připojení k serveru/sudé č.p.
-    })
+
+    });
   }
 
 }

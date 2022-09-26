@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApplicantType} from "../calculator-form.component";
 import {CalculatorService} from "../../calculator.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-calculator-form-osvc',
   templateUrl: './calculator-form-osvc.component.html',
   styleUrls: ['../calculator-form.component.css']
 })
-export class CalculatorFormOsvcComponent implements OnInit {
+export class CalculatorFormOsvcComponent implements OnInit, OnDestroy {
   loanFormOSVC: FormGroup;
+  resSub: Subscription;
+  errAddress:boolean = false;
 
   constructor(private calcService: CalculatorService) {
   }
@@ -49,6 +52,14 @@ export class CalculatorFormOsvcComponent implements OnInit {
       null,
       rawValue.address
     )
+
+    this.resSub = this.calcService.requestResponse.subscribe(response => {
+      this.errAddress = !!response.error;
+    })
+  }
+
+  onAddressChange() {
+    this.errAddress = false;
   }
 
   AddressValidator(control: FormControl): {[s: string]: boolean} {
@@ -56,5 +67,9 @@ export class CalculatorFormOsvcComponent implements OnInit {
       return {'addressIsNotValid': true};
     }
     return null;
+  }
+
+  ngOnDestroy() {
+    this.resSub.unsubscribe();
   }
 }

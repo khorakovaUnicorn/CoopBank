@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Subject} from "rxjs";
+import {catchError, retry, Subject, throwError} from "rxjs";
 import {LoanRequest} from "./calculator-form/loan-request.model";
 import {ActivatedRoute} from "@angular/router";
 
@@ -10,7 +10,10 @@ export class CalculatorService {
   formData: LoanRequest =  new LoanRequest;
   amount: number = 598000;//TODO lokální úložiště si zapamatuje poslední zadanou hodnotu - uživatel i po reloadu má svoji půjčku
   numOfMonths: number = 27; //TODO -||-
-  requestResponse = new Subject<number>();
+  requestResponse = new Subject<{
+    value?: any,
+    error?: string
+  }>();
   reqDetResponse = new Subject<LoanRequest>();
 
   fetchedData = new Subject<{
@@ -107,13 +110,19 @@ export class CalculatorService {
   submitRequest (formData: LoanRequest) {
     this.http.post(
       'http://localhost:8000/request/create',
-      formData).subscribe( response => {
-        this.requestResponse.next(response['id']);
-    }, error => {
-        console.log(error.errorMessage);
-        this.requestResponse.error('Připojení se serverem selhalo!');
+      formData)/*
+      .pipe(catchError((errorRes) => {
+        let errorMessage = 'Chyba spojení se serverem!';
+        if(errorRes.error.errorMessage === 'error - even descriptive number') {
+          errorMessage = 'Neplatná adresa!';
+        }
+      return throwError(errorMessage)}))*/
+      .subscribe( response => {
+        this.requestResponse.next({value: response['id']});
+      }, error => {
+        this.requestResponse.next({error: error});
       }
-    );
+    )
   }
 
   fetchRequestData() {
@@ -159,4 +168,8 @@ export class CalculatorService {
         console.log(resData);
     });
   }*/
+
+  resetData() {
+    this.formData.address.descNumber = 0;
+  }
 }
