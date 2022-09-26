@@ -26,7 +26,7 @@ export class CalculatorFormLegalEntityComponent implements OnInit, OnDestroy {
       'phone': new FormControl(null,[Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(9)]),
       'address': new FormGroup({
         'street': new FormControl(),
-        'descNumber': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"),  this.AddressValidator.bind(this)]),
+        'descNumber': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$")]),
         'indicativeNumber': new FormControl(),
         'city': new FormControl(),
         'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(5)])
@@ -60,13 +60,6 @@ export class CalculatorFormLegalEntityComponent implements OnInit, OnDestroy {
 
   onAddressChange() {
     this.errAddress = false;
-  }
-
-  AddressValidator(control: FormControl): {[s: string]: boolean} {
-    if (control.value % 2 === 0 ) {
-      return {'addressIsNotValid': true};
-    }
-    return null;
   }
 
   ngOnDestroy() {

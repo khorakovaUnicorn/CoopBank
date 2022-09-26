@@ -78,7 +78,6 @@
         <input type="text" id="descNumber" (input)="onAddressChange()" formControlName="descNumber" [ngClass]="errAddress ? 'faultyAddress' : 'normal'">
         <span *ngIf="!loanFormLegalEntity.get('address.descNumber').valid && loanFormLegalEntity.get('address.descNumber').touched">
           <span class="warning-message" *ngIf="loanFormLegalEntity.get('address.descNumber').errors['pattern']">Vyplňte pouze číslice.</span>
-        <span class="warning-message" *ngIf="loanFormLegalEntity.get('address.descNumber').errors['addressIsNotValid']">Číslo musí být liché.</span>
         </span>
       </div>
       <label for="indicativeNumber" [ngClass]="errAddress ? 'faultyAddress' : 'normal'">Číslo orientační</label>
