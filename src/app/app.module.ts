@@ -22,6 +22,7 @@ import { RequestDetailComponent } from './request/request-detail/request-detail.
 import { AdminDetailComponent } from './admin-section/admin-detail/admin-detail.component';
 import { AdminSectionComponent } from './admin-section/admin-section.component';
 import {SpacingPipe} from "./shared/spacing.pipe";
+import {PostalCodeNumberPipe} from "./shared/postalCodeNumber.pipe";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {SpacingPipe} from "./shared/spacing.pipe";
     RequestDetailComponent,
     AdminDetailComponent,
     AdminSectionComponent,
-    SpacingPipe
+    SpacingPipe,
+    PostalCodeNumberPipe
   ],
   imports: [
     BrowserModule,
