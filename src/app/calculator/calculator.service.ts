@@ -110,6 +110,7 @@ export class CalculatorService {
       formData).subscribe( response => {
         this.requestResponse.next(response['id']);
     }, error => {
+        console.log(error.errorMessage);
         this.requestResponse.error('Připojení se serverem selhalo!');
       }
     );
