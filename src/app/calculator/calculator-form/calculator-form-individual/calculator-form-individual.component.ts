@@ -13,9 +13,11 @@ import {Subscription} from "rxjs";
 export class CalculatorFormIndividualComponent implements OnInit, OnDestroy {
   loanFormIndividual: FormGroup;
   resSub: Subscription;
-  errAddress:boolean = false;
+  errAddress: boolean = false;
+  errSub: Subscription;
 
-  constructor(private httpClient: HttpClient, private calcService: CalculatorService) {
+  constructor(private httpClient: HttpClient,
+              private calcService: CalculatorService) {
   }
 
   ngOnInit(): void {
@@ -35,6 +37,14 @@ export class CalculatorFormIndividualComponent implements OnInit, OnDestroy {
         'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(5)])
       }),
     });
+
+    this.resSub = this.calcService.requestResponse.subscribe(response => {
+      this.errAddress = !!response.error;
+    });
+
+    this.errSub = this.calcService.errAddress.subscribe(resData => {
+      this.errAddress = resData;
+    });
   }
 
   onSubmit() {
@@ -53,24 +63,14 @@ export class CalculatorFormIndividualComponent implements OnInit, OnDestroy {
       null,
       rawValue.address
     )
-
-    this.resSub = this.calcService.requestResponse.subscribe(response => {
-      this.errAddress = !!response.error;
-    })
   }
 
   onAddressChange() {
-    this.errAddress = false;
-  }
-
-  AddressValidator(control: FormControl): {[s: string]: boolean} {
-    if (control.value % 2 === 0 ) {
-      return {'addressIsNotValid': true};
-    }
-    return null;
+    this.calcService.errAddress.next(false);
   }
 
   ngOnDestroy() {
     this.resSub.unsubscribe();
+    this.errSub.unsubscribe();
   }
 }

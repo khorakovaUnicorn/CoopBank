@@ -25,6 +25,7 @@ export class CalculatorFormComponent implements OnInit {
   loanForm: FormGroup;
   errMess = null;
   responseSub: Subscription;
+  errSub: Subscription;
 
   ApplicantType = ApplicantType
 
@@ -58,15 +59,17 @@ export class CalculatorFormComponent implements OnInit {
         if(response.error['error'].errorMessage === 'error - even descriptive number') {
           this.errMess = 'Neplatná adresa!';
         }
-        console.log(response.error['error'].errorMessage);
       } else {
         this.router.navigate(['/request'], {queryParams: {
             reqID: response.value
           }})
       }
-
-
     });
+    this.errSub = this.calcService.errAddress.subscribe(resData => {
+      if(!resData) {
+        this.errMess = '';
+      }
+    })
   }
 
 }
