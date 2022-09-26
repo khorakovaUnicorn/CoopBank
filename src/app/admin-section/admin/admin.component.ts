@@ -3,7 +3,7 @@ import {Observable, Subscription} from "rxjs";
 
 import {AuthService} from "../../auth/auth.service";
 import {User} from "../../auth/user.model";
-import {AdminResponseData, AdminService} from "./admin.service";
+import {AdminService} from "./admin.service";
 import {oneRequest} from "./requests.model";
 import {LoanRequest} from "../../calculator/calculator-form/loan-request.model";
 import {ActivatedRoute, Router} from "@angular/router";
