@@ -58,14 +58,14 @@
           <option value="min">MIN</option>
         </select></th>
         <th>Stav žádosti</th>
-        <th></th>
+        <th *ngIf="displayedRequests === undefined || displayedRequests[0]"></th>
       </tr>
       <tr *ngFor="let request of displayedRequests">
         <td *ngIf="request.applicantType === 'INDIVIDUAL'">Fyzická</td>
         <td *ngIf="request.applicantType === 'OSVC'">OSVČ</td>
         <td *ngIf="request.applicantType === 'LEGAL_ENTITY'">Právnická</td>
         <td>{{request.surname}}</td>
-        <td>{{request.amount}} Kč</td>
+        <td>{{request.amount | spacing}} Kč</td>
         <td *ngIf="request.status === 'PENDING'">Čekající</td>
         <td *ngIf="request.status === 'APPROVED'">Schváleno</td>
         <td *ngIf="request.status === 'CANCELLED'">Zamítnuto</td>
@@ -76,7 +76,7 @@
         </td>
       </tr>
     </table>
-          <p *ngIf="!displayedRequests[0]">Žádná data k zobrazení</p>
+    <p *ngIf="displayedRequests === undefined || !displayedRequests[0]">Žádná data k zobrazení</p>
   </div>
 </div>
 
