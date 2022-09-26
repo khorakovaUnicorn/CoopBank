@@ -8,8 +8,8 @@ import {ActivatedRoute} from "@angular/router";
 
 export class CalculatorService {
   formData: LoanRequest =  new LoanRequest;
-  amount: number = 598000;//TODO lokální úložiště si zapamatuje poslední zadanou hodnotu - uživatel i po reloadu má svoji půjčku
-  numOfMonths: number = 27; //TODO -||-
+  amount: number = 598000;
+  numOfMonths: number = 27;
   requestResponse = new Subject<{
     value?: any,
     error?: string
