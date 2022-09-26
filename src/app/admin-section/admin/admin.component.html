@@ -58,7 +58,7 @@
           <option value="min">MIN</option>
         </select></th>
         <th>Stav žádosti</th>
-        <th></th>
+        <th *ngIf="displayedRequests === undefined || displayedRequests[0]"></th>
       </tr>
       <tr *ngFor="let request of displayedRequests">
         <td *ngIf="request.applicantType === 'INDIVIDUAL'">Fyzická</td>
