@@ -57,7 +57,7 @@ app-request-detail {
 }
 
 .requestEditButton {
-  margin: .8em auto .8em 0;
+  margin: .8em auto .4em auto;
   text-align: center;
   width: 35%;
   font-weight: bold;
@@ -77,10 +77,26 @@ app-request-detail {
   transition-duration: 500ms;
 }
 
-.requestEditButton:disabled {
-  cursor: default;
+.requestEditButtonDisabled {
+  margin: .8em auto .4em auto;
+  text-align: center;
+  width: 35%;
+  font-weight: bold;
   background: rgba(0, 132, 61, 0.71);
   border: 1px solid rgba(0, 132, 61, 0.71);
+  color: white;
+  padding: .5em 0;
+  transition-duration: 500ms;
+  font-size: 1em;
+  font-family: 'Poppins', sans-serif;
+}
+
+.requestEditButtonDisabled:hover {
+  cursor: default;
+}
+
+h4 {
+  margin-top: 0;
 }
 
 .requestEditButton:disabled:hover {
@@ -93,4 +109,18 @@ app-request-detail {
 
 .requestEdit h4 {
   margin-bottom: .2em;
+}
+
+.buttonHolder {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+
+.errMess {
+  margin-left: auto;
+  margin-right: auto;
+  color: red;
+  font-weight: bold;
 }

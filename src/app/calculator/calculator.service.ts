@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Subject} from "rxjs";
 import {LoanRequest} from "./calculator-form/loan-request.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 
@@ -10,6 +11,7 @@ export class CalculatorService {
   amount: number = 598000;//TODO lokální úložiště si zapamatuje poslední zadanou hodnotu - uživatel i po reloadu má svoji půjčku
   numOfMonths: number = 27; //TODO -||-
   requestResponse = new Subject<number>();
+  reqDetResponse = new Subject<LoanRequest>();
 
   fetchedData = new Subject<{
     monthlyPayment: number,
@@ -19,7 +21,7 @@ export class CalculatorService {
     fixedFee?: number
   }>()
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) {
   }
 
   sendCalcData(amount: number, numOfMonths: number) {
@@ -108,10 +110,46 @@ export class CalculatorService {
       formData).subscribe( response => {
         this.requestResponse.next(response['id']);
     }, error => {
-        console.log('Error: ' + error);
+        console.log(error.errorMessage);
         this.requestResponse.error('Připojení se serverem selhalo!');
       }
     );
+  }
+
+  fetchRequestData() {
+    let currID = this.activatedRoute.queryParams['value'].reqID;
+
+    this.http.get<LoanRequest>(
+      'http://localhost:8000/request/'+currID)
+      .subscribe(response => {
+        this.formData.applicantType = response.applicantType;
+
+        if(this.formData.applicantType === 'INDIVIDUAL') {
+          this.formData.nationality = response.nationality;
+          this.formData.birthNum = response.birthNum;
+        } else if(this.formData.applicantType === 'OSVC') {
+          this.formData.nationality = response.nationality;
+          this.formData.IC = response.IC;
+        } else {
+          this.formData.IC = response.IC;
+          this.formData.position = response.position;
+          this.formData.companyName = response.companyName;
+        }
+
+        this.formData.name = response.name;
+        this.formData.surname = response.surname;
+
+        this.formData.email = response.email;
+        this.formData.phone = response.phone;
+        this.formData.amount = response.amount;
+        this.formData.numOfMonths = response.numOfMonths;
+        this.formData.address = response.address;
+        this.formData.status = response.status;
+
+      this.reqDetResponse.next(this.formData);
+    }, error => {
+      this.reqDetResponse.error('Připojení k serveru se nezdařilo!');
+    })
   }
 
   /*sendCalcData (calcData: { amount, numOfMonths}) {

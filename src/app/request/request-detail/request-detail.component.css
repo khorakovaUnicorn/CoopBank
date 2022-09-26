@@ -5,6 +5,7 @@
 
 .reqAmDur {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   margin-left: auto;
@@ -37,6 +38,7 @@
   align-items: center;
   justify-content: center;
   width: 7em;
+  min-width: 7em;
   border: 1px solid black;
   padding: .3em 0;
   margin-left: 1.5em;
@@ -55,6 +57,45 @@
 
 .reqData p {
   margin: 10px 0;
+}
+
+.divider {
+  content: '';
+  width: 90%;
+  margin: 0 auto;
+  background: #8A8A8A;
+  height: 1px;
+}
+
+.addressPart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.addressPart p {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+}
+
+.addressPart h5 {
+  margin: 0;
+}
+
+.addressData {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.addressData h4 {
+  margin-bottom: 0;
+}
+
+.addressHolder {
+  display: flex;
+  flex-direction: column;
 }
 
 /* import CSS pro slidery */

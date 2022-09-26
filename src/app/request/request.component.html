@@ -7,14 +7,23 @@
       neváhejte kontaktovat naše pracovníky, kteří Vám s ochotou pomohou!</h5>
   </div>
   <div class="requestBody">
-    <app-request-detail></app-request-detail>
+    <app-request-detail *ngIf="loanDetail"></app-request-detail>
     <div class="requestEdit">
-      <div class="requestStatus">
+      <div class="requestStatus" *ngIf="loanDetail">
         <h3>Vaše žádost je ve stavu:</h3>
-        <h5>Čeká se na vyřízení...</h5>
+        <h5>{{loanStatus}}</h5>
       </div>
 
-      <div class="requestEditButton">Editovat žádost!</div>
+      <div class="buttonHolder">
+        <div [ngClass]="!editMode ? 'requestEditButton' : 'requestEditButtonDisabled'"
+            *ngIf="loanDetail && loanStatus !== 'Schváleno!'"
+            (click)="switchEditMode()"
+        >Editovat žádost!</div>
+
+        <div class="requestEditButton" *ngIf="editMode" (click)="submitEdit()">Změnit!</div>
+      </div>
+
+      <div class="errMess"> {{errMess}} </div>
 
       <h4>Ohledně problémů a podrobnějších informací kontaktujte našeho bankovního poradce.</h4>
       <h5>Tel.: 654 987 234</h5>
