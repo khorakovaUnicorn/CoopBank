@@ -9,19 +9,36 @@
 .whoIsLogged {
   color: white;
   font-size: 18px;
-
 }
 
 .admin {
   position: absolute;
-  margin-top: 9em;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 3em;
+  width: 100%;
+  padding: 40px;
+}
+
+.tableSection {
+  margin: 0 auto;
+  max-width: 60%;
+}
+
+.filters {
+  text-align: center;
+}
+
+.filters th, .filters td {
+  padding: 5px 10px;
+}
+
+select {
+  font-size: 16px;
 }
 
 .table {
   border: 1px solid black;
   border-collapse: collapse;
+  width: 100%;
 }
 
 .table th {

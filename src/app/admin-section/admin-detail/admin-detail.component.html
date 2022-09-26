@@ -23,7 +23,9 @@
 
   <div class="reqPersonal">
     <div class="reqData">
-      <h3>{{allDetailData.applicantType}}</h3>
+      <h3 *ngIf="allDetailData.applicantType === 'INDIVIDUAL'">Fyzická osoba</h3>
+      <h3 *ngIf="allDetailData.applicantType === 'LEGAL_ENTITY'">Právnická osoba</h3>
+      <h3 *ngIf="allDetailData.applicantType === 'OSVC'">OSVČ</h3>
     </div>
     <div class="reqData" *ngIf="allDetailData.applicantType === 'LEGAL_ENTITY'">
       <h4>Název firmy:</h4>

@@ -101,12 +101,12 @@ export class AdminComponent implements OnInit {
   }
 
   openDetail(requestId: string) {
-    this.router.navigate([`../detail/${requestId}`], { relativeTo: this.route });
-    // const url = this.router.serializeUrl(
-    //   this.router.createUrlTree([`../detail/${requestId}`],{ relativeTo: this.route })
-    // );
-    //
-    // window.open(url, '_blank');
+    // this.router.navigate([`../detail/${requestId}`], { relativeTo: this.route });
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`../detail/${requestId}`],{ relativeTo: this.route })
+    );
+
+    window.open(url, '_blank');
   }
 
 

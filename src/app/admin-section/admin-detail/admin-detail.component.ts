@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Observable, Subscription} from "rxjs";
 import {LoanRequest} from "../../calculator/calculator-form/loan-request.model";
 import {AdminService} from "../admin/admin.service";
-import {AdminComponent} from "../admin/admin.component";
 
 
 @Component({
@@ -42,6 +41,4 @@ export class AdminDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.dataSubscription.unsubscribe();
   }
-
-
 }
