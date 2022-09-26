@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 
 import {AuthService} from "../../auth/auth.service";
 import {User} from "../../auth/user.model";
-import {AdminResponseData, AdminService} from "./admin.service";
+import {AdminService} from "./admin.service";
 import {oneRequest} from "./requests.model";
 import {LoanRequest} from "../../calculator/calculator-form/loan-request.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, OnDestroy {
   loggedUser: User;
   allRequests: oneRequest[];
   displayedRequests: oneRequest[];
@@ -21,9 +21,11 @@ export class AdminComponent implements OnInit {
   stateSelection: string = 'all';
   sortedAlphabet = '';
   sortedLoan = '';
+  error = null;
   private userSub: Subscription;
+  private requestListSub: Subscription;
 
-    constructor(
+  constructor(
     private authService: AuthService,
     private adminService: AdminService,
     private router: Router,
@@ -40,30 +42,60 @@ export class AdminComponent implements OnInit {
   }
 
   onGetAllRequests() {
-    let adminObs: Observable<AdminResponseData>;
-    adminObs = this.adminService.getAllRequests(this.loggedUser.token);
+    this.error = null;
+    this.requestListSub = this.adminService.getAllRequests(this.loggedUser.token)
+      .subscribe(
+        resData => {
+          this.allRequests = resData;
+          if (!this.displayedRequests) {
+            this.displayedRequests = [...this.allRequests]
+          }
+        },
+        error => {
+          if (error.error.error === "unknown user token") {
+            this.error = "Přístup zamítnut, nesprávná autorizace"
+          } else {
+            this.error = "Nelze se připojit k serveru"
+          }
+        }
+      )
+  }
 
-    adminObs.subscribe(
-      resData => {
-        this.allRequests = resData;
-        if (!this.displayedRequests) {this.displayedRequests = [...this.allRequests]}
+  onApprove(request: oneRequest) {
+    this.error = null;
+    let requestObs: Observable<LoanRequest>;
+    requestObs = this.adminService.requestApprove(request, this.loggedUser.token);
+    requestObs.subscribe( (resData) => {
+      request.status = resData.status;
+      },
+      error => {
+        if (error.error.error === "unknown user token") {
+          this.error = "Přístup zamítnut, nesprávná autorizace"
+        } else {
+          this.error = "Nelze se připojit k serveru"
+        }
       }
     )
   }
 
-  onApprove(request: oneRequest) {
-    let requestObs: Observable<LoanRequest>;
-    requestObs = this.adminService.requestApprove(request, this.loggedUser.token);
-    requestObs.subscribe();
-  }
-
   onReject(request: oneRequest) {
+    this.error = null;
     let requestObs: Observable<LoanRequest>;
     requestObs = this.adminService.requestReject(request, this.loggedUser.token);
-    requestObs.subscribe();
+    requestObs.subscribe( (resData) => {
+      request.status = resData.status;
+      },
+      error => {
+        if (error.error.error === "unknown user token") {
+          this.error = "Přístup zamítnut, nesprávná autorizace"
+        } else {
+          this.error = "Nelze se připojit k serveru"
+        }
+      }
+    )
   }
 
-  onFiltering(){
+  onFiltering() {
     let filteredBySubject = this.adminService.displayFilteredSubject(this.allRequests, this.subjectSelection);
     let filteredByState = this.adminService.displayFilteredState(this.allRequests, this.stateSelection);
     this.displayedRequests = this.adminService.filterFinal(filteredBySubject, filteredByState);
@@ -110,5 +142,10 @@ export class AdminComponent implements OnInit {
   }
 
 
+
+  ngOnDestroy() {
+    this.requestListSub.unsubscribe();
+    this.userSub.unsubscribe();
+  }
 
 }

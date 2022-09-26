@@ -1,7 +1,11 @@
 <div class="whoIsLoggedPannel">
   <div class="whoIsLogged">
     <p>{{ loggedUser ? loggedUser.name : "" }}</p>
-    <p>{{ loggedUser ? loggedUser.roles : "" }}</p>
+    <p>
+      <span *ngIf="loggedUser.roles.includes('ADMIN')">Bankovní poradce</span>
+      <span *ngIf="loggedUser.roles.length > 1">, </span>
+      <span *ngIf="loggedUser.roles.includes('SUPERVIZOR')">Admin</span>
+    </p>
   </div>
 </div>
 
@@ -35,6 +39,10 @@
   </div>
   <br>
 
+  <div class="error" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+
   <div class="tableSection">
     <table class="table">
       <tr>
@@ -53,10 +61,14 @@
         <th></th>
       </tr>
       <tr *ngFor="let request of displayedRequests">
-        <td>{{ request.applicantType }}</td>
-        <td>{{ request.surname }}</td>
-        <td>{{ request.amount }}</td>
-        <td>{{ request.status }}</td>
+        <td *ngIf="request.applicantType === 'INDIVIDUAL'">Fyzická</td>
+        <td *ngIf="request.applicantType === 'OSVC'">OSVČ</td>
+        <td *ngIf="request.applicantType === 'LEGAL_ENTITY'">Právnická</td>
+        <td>{{request.surname}}</td>
+        <td>{{request.amount}} Kč</td>
+        <td *ngIf="request.status === 'PENDING'">Čekající</td>
+        <td *ngIf="request.status === 'APPROVED'">Schváleno</td>
+        <td *ngIf="request.status === 'CANCELLED'">Zamítnuto</td>
         <td>
           <button class="approve" *ngIf="request.status === 'PENDING'" (click)="onApprove(request)">Schválit</button>
           <button class="reject" *ngIf="request.status === 'PENDING'" (click)="onReject(request)">Zamítnout</button>
@@ -64,6 +76,9 @@
         </td>
       </tr>
     </table>
+    <p *ngIf="!displayedRequests[0]">Žádná data k zobrazení</p>
   </div>
 </div>
+
+
 
