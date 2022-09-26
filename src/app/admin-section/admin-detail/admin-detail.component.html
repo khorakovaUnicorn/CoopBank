@@ -7,7 +7,7 @@
   <div class="reqPersonal">
     <div class="reqData">
       <h4>Částka:</h4>
-      <p>{{allDetailData.amount}} Kč</p>
+      <p>{{allDetailData.amount | spacing }} Kč</p>
     </div>
 
   </div>
@@ -61,7 +61,7 @@
     </div>
     <div class="reqData">
       <h4>Telefonní číslo:</h4>
-      <p>+420 {{allDetailData.phone}}</p>
+      <p>+420 {{allDetailData.phone | spacing}}</p>
     </div>
     <div class="addressData">
       <h4>Adresa</h4>
@@ -80,8 +80,8 @@
   </div>
 
 
-</div>
-<button class="back-button" (click)="backToAllRequest()">Zpět na přehled žádostí</button>
-</div>
+<!--</div>-->
+<!--<button class="back-button" (click)="backToAllRequest()">Zpět na přehled žádostí</button>-->
+<!--</div>-->
 
 

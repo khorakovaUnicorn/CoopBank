@@ -21,6 +21,7 @@ import { RequestComponent } from './request/request.component';
 import { RequestDetailComponent } from './request/request-detail/request-detail.component';
 import { AdminDetailComponent } from './admin-section/admin-detail/admin-detail.component';
 import { AdminSectionComponent } from './admin-section/admin-section.component';
+import {SpacingPipe} from "./shared/spacing.pipe";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AdminSectionComponent } from './admin-section/admin-section.component';
     RequestComponent,
     RequestDetailComponent,
     AdminDetailComponent,
-    AdminSectionComponent
+    AdminSectionComponent,
+    SpacingPipe
   ],
   imports: [
     BrowserModule,
