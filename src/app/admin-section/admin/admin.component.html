@@ -65,7 +65,7 @@
         <td *ngIf="request.applicantType === 'OSVC'">OSVČ</td>
         <td *ngIf="request.applicantType === 'LEGAL_ENTITY'">Právnická</td>
         <td>{{request.surname}}</td>
-        <td>{{request.amount}} Kč</td>
+        <td>{{request.amount | spacing}} Kč</td>
         <td *ngIf="request.status === 'PENDING'">Čekající</td>
         <td *ngIf="request.status === 'APPROVED'">Schváleno</td>
         <td *ngIf="request.status === 'CANCELLED'">Zamítnuto</td>
