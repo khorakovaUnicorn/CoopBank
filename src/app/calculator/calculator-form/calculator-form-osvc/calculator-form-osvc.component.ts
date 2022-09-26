@@ -12,7 +12,8 @@ import {Subscription} from "rxjs";
 export class CalculatorFormOsvcComponent implements OnInit, OnDestroy {
   loanFormOSVC: FormGroup;
   resSub: Subscription;
-  errAddress:boolean = false;
+  errAddress: boolean = false;
+  errSub: Subscription;
 
   constructor(private calcService: CalculatorService) {
   }
@@ -34,6 +35,14 @@ export class CalculatorFormOsvcComponent implements OnInit, OnDestroy {
         'postalCode': new FormControl(null, [Validators.pattern("^[1-9]+[0-9]*$"), Validators.maxLength(5)])
       }),
     });
+
+    this.resSub = this.calcService.requestResponse.subscribe(response => {
+      this.calcService.errAddress.next(!!response.error);
+    });
+
+    this.errSub = this.calcService.errAddress.subscribe(resData => {
+      this.errAddress = resData;
+    });
   }
 
   onSubmit() {
@@ -52,17 +61,14 @@ export class CalculatorFormOsvcComponent implements OnInit, OnDestroy {
       null,
       rawValue.address
     )
-
-    this.resSub = this.calcService.requestResponse.subscribe(response => {
-      this.errAddress = !!response.error;
-    })
   }
 
   onAddressChange() {
-    this.errAddress = false;
+    this.calcService.errAddress.next(false);
   }
 
   ngOnDestroy() {
     this.resSub.unsubscribe();
+    this.errSub.unsubscribe();
   }
 }

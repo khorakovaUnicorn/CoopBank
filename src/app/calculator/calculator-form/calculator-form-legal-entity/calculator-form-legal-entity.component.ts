@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApplicantType} from "../calculator-form.component";
 import {CalculatorService} from "../../calculator.service";
 import {Subscription} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-calculator-form-legal-entity',
@@ -12,9 +13,11 @@ import {Subscription} from "rxjs";
 export class CalculatorFormLegalEntityComponent implements OnInit, OnDestroy {
   loanFormLegalEntity: FormGroup;
   resSub: Subscription;
-  errAddress:boolean = false;
+  errAddress: boolean = false;
+  errSub: Subscription;
 
-  constructor(private calcService: CalculatorService) { }
+  constructor(private httpClient: HttpClient,
+              private calcService: CalculatorService) {}
 
   ngOnInit(): void {
     this.loanFormLegalEntity = new FormGroup({
@@ -34,6 +37,13 @@ export class CalculatorFormLegalEntityComponent implements OnInit, OnDestroy {
       'companyName': new FormControl(null, [Validators.required]),
       'position': new FormControl("Člen/ka představenstva")
     });
+    this.resSub = this.calcService.requestResponse.subscribe(response => {
+      this.errAddress = !!response.error;
+    });
+
+    this.errSub = this.calcService.errAddress.subscribe(resData => {
+      this.errAddress = resData;
+    });
   }
 
   onSubmit() {
@@ -52,18 +62,14 @@ export class CalculatorFormLegalEntityComponent implements OnInit, OnDestroy {
       rawValue.companyName,
       rawValue.address
     )
-
-    this.resSub = this.calcService.requestResponse.subscribe(response => {
-      this.errAddress = !!response.error;
-    })
   }
 
   onAddressChange() {
-    this.errAddress = false;
+    this.calcService.errAddress.next(false);
   }
 
   ngOnDestroy() {
     this.resSub.unsubscribe();
+    this.errSub.unsubscribe();
   }
-
 }
